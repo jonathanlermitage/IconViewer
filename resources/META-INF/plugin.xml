@@ -1,55 +1,51 @@
 <idea-plugin>
-  <id>ch.dasoft.iconviewer</id>
-  <name>IconViewer</name>
-  <version>1.15</version>
-  <vendor email="david.sommer@dasoft.ch" url="https://www.dasoft.ch">dasoft.ch</vendor>
+    <id>lermitage.intellij.iconviewer</id>
+    <name>Icon Viewer 2</name>
+    <version>REPLACED_BY_GRADLE</version>
+    <vendor email="jonathan.lermitage@gmail.com" url="https://github.com/jonathanlermitage">Jonathan Lermitage</vendor>
 
-  <description><![CDATA[
-
-  <h1>IconViewer</h1>
-  <br/>
-  <a href="https://github.com/davidsommer/IconViewer">GitHub</a>
-  <br/>
-  Preview project images as an icon in your project explorer.
-  Helpful if you have a lot of icons in your project, <b>IconViewer</b> gives you a nice preview icon.
-  <br/>
-  Bigger images are scaled to 16x16, supported are:
-  <br/>
-  <ul>
-  <li>*.gif</li>
-  <li>*.png</li>
-  <li>*.bmp</li>
-  <li>*.jpg</li>
-  <li>*.jpeg</li>
-  <li>*.wbmp</li>
-  <li>*.svg</li>
-  <li>*.webp (Android Studio only)</li>
-  </ul>
+    <description><![CDATA[
+      <i>This plugin is a maintained fork of the excellent <a href="https://plugins.jetbrains.com/plugin/9710-iconviewer">IconViewer plugin</a>.</i><br/><br/>
+      Preview project images as an icon in your project explorer.<br/>
+      Helpful if you have a lot of icons in your project, <b>Icon Viewer</b> 2 gives you a nice preview icon.<br/>
+      Bigger images are scaled to 16x16, supported are:
+      <ul>
+        <li>*.gif</li>
+        <li>*.png</li>
+        <li>*.bmp</li>
+        <li>*.jpg</li>
+        <li>*.jpeg</li>
+        <li>*.wbmp</li>
+        <li>*.svg</li>
+        <li>*.webp</li>
+      </ul>
+      <i>For questions, issues or contributions, please see the <a href="https://github.com/jonathanlermitage/IconViewer">GitHub project</a></i>.
     ]]></description>
 
-  <change-notes><![CDATA[
-   <ul>
-   <li>03.17.2019 Version 1.15 - fix bug in macOSx .png not show by longforus</li>
-   <li>10.31.2018 Version 1.14 - added webp support on android studio by longforus</li>
-   <li>06.09.2017 Version 1.13 - clean up an added svg support</li>
-   <li>06.07.2017 Version 1.12 - bugfix ignore images from external jars</li>
-   <li>23.05.2017 Version 1.11 - bugfix, platform support</li>
-   <li>22.05.2017 Version 1.1  - bugfixes</li>
-   <li>19.05.2017 Version 1.0  - init</li>
-   </ul>
+    <change-notes><![CDATA[
+    1.0.0 (2020/03/24)
+    <ul>
+      <li>first release, based on IconViewer 1.15.</li>
+      <li>project migrated to Gradle.</li>
+      <li>fix <a href="https://github.com/davidsommer/IconViewer/issues/9">issue #9: ArrayIndexOutOfBoundsException</a>.</li>
+    </ul>
+    <p>
+        See <a href="https://github.com/jonathanlermitage/IconViewer/blob/master/CHANGELOG.md">changelog</a>
+        and <a href="https://github.com/jonathanlermitage/IconViewer/blob/master/README.md">readme</a> on GitHub.
+    </p>
     ]]>
-  </change-notes>
+    </change-notes>
 
-  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-  <idea-version since-build="145.0"/>
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="193.0"/>
 
-  <!-- Make plugin available to all IntelliJ IDEs
-     http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
-  <depends>com.intellij.modules.platform</depends>
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.platform</depends>
 
-  <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
-    <iconProvider implementation="ch.dasoft.iconviewer.ImageIconProvider"/>
-  </extensions>
+    <extensions defaultExtensionNs="com.intellij">
+        <iconProvider implementation="lermitage.intellij.iconviewer.ImageIconProvider"/>
+    </extensions>
 
 </idea-plugin>
