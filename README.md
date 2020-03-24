@@ -12,7 +12,7 @@ Helpful if you have a lot of icons in your project, Icon Viewer 2 gives you a ni
   
 It works with all JetBrains products like WebStorm, DataGrip, etc.
 
-Download plugin on [GitHub](https://github.com/jonathanlermitage/IconViewer/releases), [JetBrains Plugins Repository](https://plugins.jetbrains.com/plugin/???) or via IntelliJ IDEA (<kbd>File</kbd>, <kbd>Settings</kbd>, <kbd>Plugins</kbd>, <kbd>Browse repositories...</kbd>, <kbd>Icon Viewer 2</kbd>).
+Download plugin on [GitHub](https://github.com/jonathanlermitage/IconViewer/releases), [JetBrains Plugins Repository](https://plugins.jetbrains.com/plugin/13995-icon-viewer-2) or via IntelliJ IDEA (<kbd>File</kbd>, <kbd>Settings</kbd>, <kbd>Plugins</kbd>, <kbd>Browse repositories...</kbd>, <kbd>Icon Viewer 2</kbd>).
 
 ## Author
 
