@@ -6,10 +6,14 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.util.IconUtil;
+import com.intellij.util.ImageLoader;
+import com.intellij.util.ui.ImageUtil;
+import com.intellij.util.ui.JBImageIcon;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,38 +27,73 @@ import java.io.IOException;
 public class ImageIconProvider extends IconProvider {
 
     private static final Logger LOGGER = Logger.getInstance(ImageIconProvider.class);
+    private static final int SCALING_SIZE = 16;
 
     public Icon getIcon(@NotNull PsiElement psiElement, int flags) {
         PsiFile containingFile = psiElement.getContainingFile();
         if (checkImagePath(containingFile)) {
             VirtualFile canonicalFile = containingFile.getVirtualFile().getCanonicalFile();
             if (containingFile.getVirtualFile().getExtension() != null) {
-                IconType imgType = containingFile.getVirtualFile().getExtension().equalsIgnoreCase("svg") ? IconType.SVG : IconType.IMG;
-                switch (imgType) {
-                    case IMG:
-                        if (canonicalFile == null) {
-                            return null;
-                        }
-                        try {
-                            return new ImageIcon(ImageIO.read(new File(canonicalFile.getPath())).getScaledInstance(16, 16, BufferedImage.SCALE_SMOOTH));
-                        } catch (IOException e) {
-                            LOGGER.warn("Error loading preview Icon - " + canonicalFile.getCanonicalPath(), e);
-                            return null;
-                        }
-                    case SVG:
+                switch (containingFile.getVirtualFile().getExtension().toLowerCase()) {
+
+                    case "svg":
                         CustomIconLoader.ImageWrapper imageWrapper = CustomIconLoader.loadFromVirtualFile(containingFile.getVirtualFile());
                         if (imageWrapper == null) {
                             return null;
                         }
-                        CustomIconLoader.ImageWrapper fromBase64 = CustomIconLoader.fromBase64(CustomIconLoader.toBase64(imageWrapper), imgType);
+                        CustomIconLoader.ImageWrapper fromBase64 = CustomIconLoader.fromBase64(CustomIconLoader.toBase64(imageWrapper), IconType.SVG);
                         if (fromBase64 == null) {
                             return null;
                         }
                         return IconUtil.createImageIcon(fromBase64.getImage());
+
+                    case "webm":
+                    case "webp":
+                        if (canonicalFile == null) {
+                            return null;
+                        }
+
+                        try {
+                            return new ImageIcon(ImageIO.read(new File(canonicalFile.getPath()))
+                                .getScaledInstance(SCALING_SIZE, SCALING_SIZE, BufferedImage.SCALE_SMOOTH));
+                        } catch (IOException e) {
+                            logWarn(e, canonicalFile);
+                            return null;
+                        }
+
+                    default:
+                        if (canonicalFile == null) {
+                            return null;
+                        }
+
+                        try {
+                            Image img = ImageLoader.loadFromBytes(canonicalFile.contentsToByteArray());
+                            Image image = ImageUtil.scaleImage(img, SCALING_SIZE, SCALING_SIZE);
+                            if (image != null) {
+                                JBImageIcon jbImageIcon = new JBImageIcon(image);
+                                if (jbImageIcon.getImage() != null && jbImageIcon.getIconHeight() > 0 && jbImageIcon.getIconWidth() > 0) {
+                                    return jbImageIcon;
+                                }
+                            }
+                        } catch (Exception e) {
+                            logWarn(e, canonicalFile);
+                        }
+
+                        try {
+                            return new ImageIcon(ImageIO.read(new File(canonicalFile.getPath()))
+                                .getScaledInstance(SCALING_SIZE, SCALING_SIZE, BufferedImage.SCALE_SMOOTH));
+                        } catch (IOException e) {
+                            logWarn(e, canonicalFile);
+                            return null;
+                        }
                 }
             }
         }
         return null;
+    }
+
+    private void logWarn(Exception e, VirtualFile virtualFile) {
+        LOGGER.warn("Error loading preview Icon - " + virtualFile.getCanonicalPath(), e);
     }
 
     private boolean checkImagePath(PsiFile containingFile) {

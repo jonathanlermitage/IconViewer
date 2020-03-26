@@ -23,6 +23,10 @@
     ]]></description>
 
     <change-notes><![CDATA[
+    1.1.0 (2020/03/26)
+    <ul>
+      <li>improved images rendering quality.</li>
+    </ul>
     1.0.0 (2020/03/24)
     <ul>
       <li>first release, based on IconViewer 1.15.</li>
