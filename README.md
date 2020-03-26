@@ -52,9 +52,8 @@ Bigger images are scaled to 16x16, supported are:
  - *.bmp
  - *.jpg
  - *.jpeg
- - *.wbmp
  - *.bmp
  - *.svg
- - *.webp
-
+ - *.wbmp and *.webp (*Android Support* plugin should be activated)
+ 
 ![screeshot](misc/screenshot.png)
