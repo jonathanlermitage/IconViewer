@@ -4,8 +4,7 @@ if [%1] == [help] (
   echo  w $V:    set gradle wrapper
   echo  fixgit:  fix permission flag on git index for required files
   echo  b:       build plugin
-  echo  run:     run plugin in IntelliJ Ultimate 2018.3
-  echo  run2019: run plugin in IntelliJ Ultimate 2019.3
+  echo  run:     run plugin in IntelliJ Ultimate 2019.3.4
   echo  runeap:  run plugin in latest IntelliJ Ultimate EAP Snapshot
   echo  release: package plugin
   echo  test:    run unit tests
@@ -24,9 +23,6 @@ if [%1] == [b] (
 )
 if [%1] == [run] (
   gradlew buildPlugin runIde --warning-mode all
-)
-if [%1] == [run2019] (
-  gradlew buildPlugin runIde --warning-mode all -PideaVersion=IU-2019.3
 )
 if [%1] == [runeap] (
   gradlew buildPlugin runIde --warning-mode all -PideaVersion=IU-LATEST-EAP-SNAPSHOT

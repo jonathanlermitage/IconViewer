@@ -30,8 +30,10 @@ Download plugin on [GitHub](https://github.com/jonathanlermitage/IconViewer/rele
 ### Gradle commands
 
 * build plugin: `./gradlew buildPlugin`. See generated jar: `build/libs/ij-extra-icons-x.y.z.193.jar`.
-* run IDE with plugin: `./gradlew runIde`.
+* run plugin in a standalone IntelliJ Ultimate IDE: `./gradlew runIde`.
 * check for dependencies updates: `./gradlew dependencyUpdates -Drevision=release -DoutputFormatter=plain -DoutputDir=./build/`.
+
+On Windows, you can look at the `do.cmd` helper script. Run `do.cmd help` to show available commands.
 
 ## Contribution
 
