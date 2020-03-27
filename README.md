@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-    <!--a href="https://travis-ci.org/jonathanlermitage/IconViewer"><img src="https://travis-ci.org/jonathanlermitage/IconViewer.svg?branch=master"/></a-->
+    <a href="https://travis-ci.org/jonathanlermitage/IconViewer"><img src="https://travis-ci.org/jonathanlermitage/IconViewer.svg?branch=master"/></a>
     <a href="https://plugins.jetbrains.com/plugin/13995-icon-viewer-2"><img src="https://img.shields.io/jetbrains/plugin/v/13995-icon-viewer-2.svg"/></a>
     <a href="https://plugins.jetbrains.com/plugin/13995-icon-viewer-2"><img src="https://img.shields.io/jetbrains/plugin/d/13995-icon-viewer-2.svg"/></a>
     <a href="https://github.com/jonathanlermitage/IconViewer/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/jonathanlermitage/IconViewer.svg"/></a>
