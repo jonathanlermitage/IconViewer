@@ -29,8 +29,8 @@ Download plugin on [GitHub](https://github.com/jonathanlermitage/IconViewer/rele
 
 ### Gradle commands
 
-* build plugin: `./gradlew buildPlugin`. See generated jar: `build/libs/ij-extra-icons-x.y.z.193.jar`.
-* run plugin in a standalone IntelliJ Ultimate IDE: `./gradlew runIde`.
+* build plugin: `./gradlew buildPlugin`. See generated zip: `build/distribution/Icon Viewer 2-x.y.z.193.zip`.
+* run IDE with plugin: `./gradlew runIde`.
 * check for dependencies updates: `./gradlew dependencyUpdates -Drevision=release -DoutputFormatter=plain -DoutputDir=./build/`.
 
 On Windows, you can look at the `do.cmd` helper script. Run `do.cmd help` to show available commands.
@@ -47,15 +47,42 @@ MIT License. In other words, you can do what you want: this project is entirely 
 
 ## Demonstration
 
-Bigger images are scaled to 16x16, supported are:
+Bigger images are scaled to 16x16.
 
- - *.gif
- - *.png 
+Supported file formats are:
+
  - *.bmp
+ - *.gif
  - *.jpg
  - *.jpeg
- - *.bmp
- - *.svg
- - *.wbmp and *.webp (*Android Support* plugin should be activated)
+ - *.png 
+ - *.svg (tip: if *Extra Icons* plugin is active, you may want to disable its SVG support in order to diplay SVG files in place of SVG logo)
+ 
+Supported when *Android Support* plugin is activated:
+
+ - *.webm
+ - *.webp
+ 
+Limited support (may not work) for:
+ 
+ - *.bigtiff
+ - *.dcx
+ - *.icns
+ - *.ico
+ - *.jbig2
+ - *.pam
+ - *.pbm
+ - *.pcx
+ - *.pgm
+ - *.pnm
+ - *.ppm
+ - *.psd
+ - *.rgbe
+ - *.tga
+ - *.tif
+ - *.tiff
+ - *.wbmp
+ - *.xbm
+ - *.xpm
  
 ![screeshot](misc/screenshot.png)

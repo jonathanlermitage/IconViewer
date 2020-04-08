@@ -7,21 +7,51 @@
     <description><![CDATA[
       <i>This plugin is a maintained fork of the excellent <a href="https://plugins.jetbrains.com/plugin/9710-iconviewer">IconViewer plugin</a>.</i><br/><br/>
       Preview project images as an icon in your project explorer.<br/>
-      Helpful if you have a lot of icons in your project, <b>Icon Viewer</b> 2 gives you a nice preview icon.<br/>
-      Bigger images are scaled to 16x16, supported are:
+      Helpful if you have a lot of icons in your project, <b>Icon Viewer</b> 2 gives you a nice preview icon.<br/><br/>
+      Bigger images are scaled to 16x16. Supported file formats are:
       <ul>
-        <li>*.gif</li>
-        <li>*.png</li>
         <li>*.bmp</li>
+        <li>*.gif</li>
         <li>*.jpg</li>
         <li>*.jpeg</li>
-        <li>*.svg</li>
-        <li>*.wbmp and *.webp (<i>Android Support</i> plugin should be activated)</li>
+        <li>*.png </li>
+        <li>*.svg (tip: if <i>Extra Icons</i> plugin is active, you may want to disable its SVG support in order to diplay SVG files in place of SVG logo)</li>
+      </ul>
+      Supported when <i>Android Support</i> plugin is activated:
+      <ul>
+        <li>*.webm</li>
+        <li>*.webp</li>
+      </ul>
+      Limited support (may not work) for:
+      <ul>
+        <li>*.bigtiff</li>
+        <li>*.dcx</li>
+        <li>*.icns</li>
+        <li>*.ico</li>
+        <li>*.jbig2</li>
+        <li>*.pam</li>
+        <li>*.pbm</li>
+        <li>*.pcx</li>
+        <li>*.pgm</li>
+        <li>*.pnm</li>
+        <li>*.ppm</li>
+        <li>*.psd</li>
+        <li>*.rgbe</li>
+        <li>*.tga</li>
+        <li>*.tif</li>
+        <li>*.tiff</li>
+        <li>*.wbmp</li>
+        <li>*.xbm</li>
+        <li>*.xpm</li>
       </ul>
       <i>For questions, issues or contributions, please see the <a href="https://github.com/jonathanlermitage/IconViewer">GitHub project</a></i>.
     ]]></description>
 
     <change-notes><![CDATA[
+    1.2.0 (2020/04/08)
+    <ul>
+      <li>support more image formats by using <a href="https://github.com/haraldk/TwelveMonkeys">TwelveMonkeys library</a>. Thx <a href="https://youtrack.jetbrains.com/issue/IDEA-236055#focus=streamItem-27-4037903.0-0">JetBrains support</a>.</li>
+    </ul>
     1.1.0 (2020/03/26)
     <ul>
       <li>improved images rendering quality.</li>
