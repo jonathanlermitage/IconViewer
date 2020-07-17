@@ -48,6 +48,10 @@
     ]]></description>
 
     <change-notes><![CDATA[
+    1.3.0 (2020/07/18)
+    <ul>
+      <li>upgrade TwelveMonkeys library from 3.5 to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.6">3.6</a>.</li>
+    </ul>
     1.2.0 (2020/04/08)
     <ul>
       <li>support more image formats by using <a href="https://github.com/haraldk/TwelveMonkeys">TwelveMonkeys library</a>. Thx <a href="https://youtrack.jetbrains.com/issue/IDEA-236055#focus=streamItem-27-4037903.0-0">JetBrains support</a>.</li>

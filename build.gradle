@@ -66,6 +66,6 @@ dependencyUpdates {
 }
 
 dependencies {
-    implementation 'com.twelvemonkeys.imageio:imageio-core:3.5'
+    implementation 'com.twelvemonkeys.imageio:imageio-core:3.6' // https://github.com/haraldk/TwelveMonkeys/releases
     testImplementation  'junit:junit:4.13'
 }
