@@ -63,26 +63,6 @@ Supported when *Android Support* plugin is activated:
  - *.webm
  - *.webp
  
-Limited support (may not work) for:
- 
- - *.bigtiff
- - *.dcx
- - *.icns
- - *.ico
- - *.jbig2
- - *.pam
- - *.pbm
- - *.pcx
- - *.pgm
- - *.pnm
- - *.ppm
- - *.psd
- - *.rgbe
- - *.tga
- - *.tif
- - *.tiff
- - *.wbmp
- - *.xbm
- - *.xpm
+And files Supported by bundled TwelveMonkeys library, like *.ico, *.tga, etc. See [File formats supported](https://github.com/haraldk/TwelveMonkeys#file-formats-supported).
  
 ![screeshot](misc/screenshot.png)
