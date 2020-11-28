@@ -4,13 +4,13 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.29.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.36.0'
     }
 }
 
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.21'
+    id 'org.jetbrains.intellij' version '0.6.5'
 }
 
 apply plugin: 'idea'
