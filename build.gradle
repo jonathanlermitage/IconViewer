@@ -42,7 +42,7 @@ intellij {
     downloadSources Boolean.valueOf(downloadIdeaSources)
     instrumentCode Boolean.valueOf(instrumentPluginCode)
     pluginName 'Icon Viewer 2'
-    sandboxDirectory = "${rootProject.projectDir}/${ideaSandbox}-${ideaVersion}"
+    sandboxDirectory = "${rootProject.projectDir}/.idea-sandbox/${ideaVersion}"
     updateSinceUntilBuild false
     version ideaVersion
 }
