@@ -28,7 +28,7 @@
     ]]></description>
 
     <change-notes><![CDATA[
-    1.4.0 (WIP)
+    1.4.0 (2020/11/29)
     <ul>
       <li>upgrade TwelveMonkeys library from 3.6 to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.6.1">3.6.1</a>.</li>
       <li>fix usage of TwelveMonkeys library, it should fix support of many file formats.</li>

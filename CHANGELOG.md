@@ -1,6 +1,6 @@
 ## Icon Viewer 2 Change Log
 
-### 1.4.0 (WIP)
+### 1.4.0 (2020/11/29)
 * upgrade TwelveMonkeys library from 3.6 to [3.6.1](https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.6.1).
 * fix usage of TwelveMonkeys library, it should fix support of many file formats.
 * code cleanup and minor performance improvements.
