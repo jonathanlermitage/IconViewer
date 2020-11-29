@@ -3,6 +3,7 @@
 ### 1.4.0 (WIP)
 * upgrade TwelveMonkeys library from 3.6 to [3.6.1](https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.6.1).
 * fix usage of TwelveMonkeys library, it should fix support of many file formats.
+* code cleanup and minor performance improvements.
 
 ### 1.3.0 (2020/07/18)
 * upgrade TwelveMonkeys library from 3.5 to [3.6](https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.6).

@@ -15,8 +15,9 @@ import org.jetbrains.annotations.Nullable;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -39,10 +40,10 @@ public class ImageIconProvider extends IconProvider {
     private static final Logger LOGGER = Logger.getInstance(ImageIconProvider.class);
     private static final int SCALING_SIZE = 16;
 
-    private ThreadLocal<Boolean> contextUpdated = ThreadLocal.withInitial(() -> false);
+    private final ThreadLocal<Boolean> contextUpdated = ThreadLocal.withInitial(() -> false);
 
     /** Image formats supported by TwelveMonkeys. */
-    private ThreadLocal<Set<String>> extendedImgFormats = ThreadLocal.withInitial(Collections::emptySet);
+    private final ThreadLocal<Set<String>> extendedImgFormats = ThreadLocal.withInitial(Collections::emptySet);
     /** Image formats supported by base JVM. */
     private final Set<String> simpleImgFormats = new HashSet<>(Arrays.asList("gif", "png", "bmp", "jpg", "jpeg"));
     /** Image formats supported when Android plugin is enabled. */
@@ -106,15 +107,11 @@ public class ImageIconProvider extends IconProvider {
 
     @Nullable
     private Icon previewSvgImage(@NotNull VirtualFile canonicalFile) {
-        CustomIconLoader.ImageWrapper imageWrapper = CustomIconLoader.loadFromVirtualFile(canonicalFile);
-        if (imageWrapper == null) {
+        Image image = CustomIconLoader.loadSVGFromVirtualFile(canonicalFile);
+        if (image == null) {
             return null;
         }
-        CustomIconLoader.ImageWrapper fromBase64 = CustomIconLoader.fromBase64(CustomIconLoader.toBase64(imageWrapper), IconType.SVG);
-        if (fromBase64 == null) {
-            return null;
-        }
-        return IconUtil.createImageIcon(fromBase64.getImage());
+        return IconUtil.createImageIcon(image);
     }
 
     @Nullable
