@@ -23,8 +23,6 @@ Download plugin on [GitHub](https://github.com/jonathanlermitage/IconViewer/rele
 
 ## Contributors
 
-* n/a
-
 ## Build
 
 ### Gradle commands
@@ -63,6 +61,6 @@ Supported when *Android Support* plugin is activated:
  - *.webm
  - *.webp
  
-And files Supported by bundled TwelveMonkeys library, like *.ico, *.tga, etc. See [File formats supported](https://github.com/haraldk/TwelveMonkeys#file-formats-supported).
+Files Supported by bundled TwelveMonkeys library, like *.ico, *.tga, etc. See [File formats supported](https://github.com/haraldk/TwelveMonkeys#file-formats-supported).
  
 ![screeshot](misc/screenshot.png)

@@ -22,7 +22,7 @@
         <li>*.webm</li>
         <li>*.webp</li>
       </ul>
-      and files Supported by bundled TwelveMonkeys library, like *.ico, *.tga, etc. See <a href="https://github.com/haraldk/TwelveMonkeys#file-formats-supported">File formats supported</a>.
+      Files Supported by bundled TwelveMonkeys library, like *.ico, *.tga, etc. See <a href="https://github.com/haraldk/TwelveMonkeys#file-formats-supported">File formats supported</a>.
       <br/><br/>
       <i>For questions, issues or contributions, please see the <a href="https://github.com/jonathanlermitage/IconViewer">GitHub project</a></i>.
     ]]></description>
