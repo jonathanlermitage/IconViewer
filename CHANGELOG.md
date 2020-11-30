@@ -1,5 +1,8 @@
 ## Icon Viewer 2 Change Log
 
+### 1.4.1 (2020/11/30)
+* fix [#1](https://github.com/jonathanlermitage/IconViewer/issues/1): I/O error reading PNG header.
+
 ### 1.4.0 (2020/11/29)
 * upgrade TwelveMonkeys library from 3.6 to [3.6.1](https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.6.1).
 * fix usage of TwelveMonkeys library, it should fix support of many file formats.
