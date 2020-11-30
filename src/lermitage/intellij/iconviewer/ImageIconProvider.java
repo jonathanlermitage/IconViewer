@@ -6,8 +6,6 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.util.IconUtil;
-import com.intellij.util.ImageLoader;
-import com.intellij.util.ui.ImageUtil;
 import com.intellij.util.ui.JBImageIcon;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -44,8 +42,6 @@ public class ImageIconProvider extends IconProvider {
 
     /** Image formats supported by TwelveMonkeys. */
     private final ThreadLocal<Set<String>> extendedImgFormats = ThreadLocal.withInitial(Collections::emptySet);
-    /** Image formats supported by base JVM. */
-    private final Set<String> simpleImgFormats = new HashSet<>(Arrays.asList("gif", "png", "bmp", "jpg", "jpeg"));
     /** Image formats supported when Android plugin is enabled. */
     private final Set<String> androidImgFormats = new HashSet<>(Arrays.asList("webm", "webp"));
     /** SVG image format. */
@@ -64,43 +60,13 @@ public class ImageIconProvider extends IconProvider {
             VirtualFile canonicalFile = containingFile.getVirtualFile().getCanonicalFile();
             String fileExtension = containingFile.getVirtualFile().getExtension().toLowerCase();
 
-            if (simpleImgFormats.contains(fileExtension)) {
-                return previewImage(canonicalFile);
-            } else if (androidImgFormats.contains(fileExtension)) {
+            if (androidImgFormats.contains(fileExtension)) {
                 return previewAndroidImage(canonicalFile);
             } else if (svgImgFormats.contains(fileExtension)) {
                 return previewSvgImage(canonicalFile);
             } else {
                 return previewImageWithExtendedSupport(canonicalFile, fileExtension);
             }
-        }
-        return null;
-    }
-
-    @Nullable
-    private Icon previewImage(@NotNull VirtualFile canonicalFile) {
-        try {
-            Image img = ImageLoader.loadFromBytes(canonicalFile.contentsToByteArray());
-            Image image = ImageUtil.scaleImage(img, SCALING_SIZE, SCALING_SIZE);
-            if (image != null) {
-                JBImageIcon jbImageIcon = new JBImageIcon(image);
-                if (jbImageIcon.getImage() != null && jbImageIcon.getIconHeight() > 0 && jbImageIcon.getIconWidth() > 0) {
-                    return jbImageIcon;
-                }
-            }
-        } catch (Exception e) {
-            logWarn(e, canonicalFile);
-        }
-
-        try {
-            BufferedImage read = read(canonicalFile);
-            if (read == null) {
-                return null;
-            }
-            Image scaledInstance = read.getScaledInstance(SCALING_SIZE, SCALING_SIZE, BufferedImage.SCALE_SMOOTH);
-            return scaledInstance == null ? null : new ImageIcon(scaledInstance);
-        } catch (Exception e) {
-            logWarn(e, canonicalFile);
         }
         return null;
     }
