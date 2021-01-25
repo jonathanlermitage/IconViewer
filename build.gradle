@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        twelvemonkeysVersion = "3.6.1"
+        twelvemonkeysVersion = "3.6.2"
     }
     repositories {
         mavenCentral()
