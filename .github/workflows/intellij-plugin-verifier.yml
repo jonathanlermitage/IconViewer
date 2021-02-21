@@ -1,4 +1,4 @@
-# see https://github.com/marketplace/actions/intellij-plugin-verifier
+#see https://github.com/ChrisCarini/intellij-platform-plugin-verifier-action
 name: Plugin compatibility
 on: [push, pull_request]
 jobs:
@@ -11,10 +11,11 @@ jobs:
         with:
           java-version: 11.x.x
       - name: Build the plugin using Gradle
-        run: ./gradlew buildPlugin -PdownloadIdeaSources=false
-      - uses: thepieterdc/intellij-plugin-verifier-action@v1.1.2
+        run: ./gradlew buildPlugin
+      - uses: ChrisCarini/intellij-platform-plugin-verifier-action@v1.0.3
         with:
-          plugin: '/home/runner/work/IconViewer/IconViewer/build/distributions/*'
-          versions: |
-            2019.3.4
-            2020.1
+          ide-versions: |
+            ideaIC:2019.3.4
+            ideaIU:2019.3.4
+            ideaIC:2020.3.2
+            ideaIU:2020.3.2
