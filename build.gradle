@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        twelvemonkeysVersion = "3.6.2"
+        twelvemonkeysVersion = "3.6.3"
     }
     repositories {
         mavenCentral()
@@ -12,7 +12,7 @@ buildscript {
 
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.6.5'
+    id 'org.jetbrains.intellij' version '0.7.2'
 }
 
 apply plugin: 'idea'
@@ -89,5 +89,5 @@ dependencies {
     implementation "com.twelvemonkeys.imageio:imageio-sgi:$twelvemonkeysVersion"  // https://github.com/haraldk/TwelveMonkeys/wiki/SGI-Plugin
     implementation "com.twelvemonkeys.imageio:imageio-tga:$twelvemonkeysVersion"  // https://github.com/haraldk/TwelveMonkeys/wiki/TGA-Plugin
     implementation "com.twelvemonkeys.imageio:imageio-tiff:$twelvemonkeysVersion" // https://github.com/haraldk/TwelveMonkeys/wiki/TIFF-Plugin
-    testImplementation "junit:junit:4.13.1"
+    testImplementation "junit:junit:4.13.2"
 }
