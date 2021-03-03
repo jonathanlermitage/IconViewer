@@ -1,5 +1,8 @@
 ## Icon Viewer 2 Change Log
 
+### 1.6.0 (2021/03/03)
+* upgrade TwelveMonkeys library from 3.6.2 to [3.6.3](https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.6.3).
+
 ### 1.5.1 (2021/01/27)
 * render non-square SVG images, don't throw an exception.
 
