@@ -1,4 +1,5 @@
 <h1 align="center">
+    <img src="./src/main/resources/META-INF/pluginIcon.svg" width="84" height="84" alt="logo"/><br/>
     Icon Viewer 2
 </h1>
 
