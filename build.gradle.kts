@@ -15,7 +15,7 @@ val pluginVersion: String by project
 val pluginJavaVersion: String by project
 val pluginEnableBuildSearchableOptions: String by project
 
-val twelvemonkeysVersion = "3.6.3"
+val twelvemonkeysVersion = "3.6.4"
 
 val inCI = System.getenv("CI") != null
 
@@ -49,7 +49,7 @@ dependencies {
 intellij {
     downloadSources = pluginDownloadIdeaSources.toBoolean() && !inCI
     instrumentCode = pluginInstrumentPluginCode.toBoolean()
-    pluginName = "Battery Status"
+    pluginName = "Icon Viewer 2"
     sandboxDirectory = "${rootProject.projectDir}/.idea-sandbox/${pluginIdeaVersion}"
     updateSinceUntilBuild = false
     version = pluginIdeaVersion

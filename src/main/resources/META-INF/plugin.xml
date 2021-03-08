@@ -28,6 +28,10 @@
     ]]></description>
 
     <change-notes><![CDATA[
+    1.7.0 (2021/03/08)
+    <ul>
+      <li>upgrade TwelveMonkeys library from 3.6.3 to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.6.4">3.6.4</a>: Fix infinite loops in corrupted JPEGs.</li>
+    </ul>
     1.6.0 (2021/03/03)
     <ul>
       <li>upgrade TwelveMonkeys library from 3.6.2 to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.6.3">3.6.3</a>.</li>
