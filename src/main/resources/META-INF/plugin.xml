@@ -28,6 +28,10 @@
     ]]></description>
 
     <change-notes><![CDATA[
+    1.7.1 (2021/03/14)
+    <ul>
+      <li>fix <a href="https://github.com/jonathanlermitage/IconViewer/issues/2">#2</a>: error when opening an invalid SVG file.</li>
+    </ul>
     1.7.0 (2021/03/08)
     <ul>
       <li>upgrade TwelveMonkeys library from 3.6.3 to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.6.4">3.6.4</a>: Fix infinite loops in corrupted JPEGs.</li>
