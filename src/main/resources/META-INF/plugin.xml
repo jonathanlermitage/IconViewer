@@ -28,6 +28,10 @@
     ]]></description>
 
     <change-notes><![CDATA[
+    1.8.0 (2021/04/25)
+    <ul>
+      <li>upgrade TwelveMonkeys library from 3.6.4 to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.7.0">3.7.0</a>.</li>
+    </ul>
     1.7.1 (2021/03/14)
     <ul>
       <li>fix <a href="https://github.com/jonathanlermitage/IconViewer/issues/2">#2</a>: error when opening an invalid SVG file.</li>

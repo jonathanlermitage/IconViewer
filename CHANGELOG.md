@@ -1,5 +1,8 @@
 ## Icon Viewer 2 Change Log
 
+### 1.8.0 (2021/04/25)
+* upgrade TwelveMonkeys library from 3.6.4 to [3.7.0](https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.7.0).
+
 ### 1.7.1 (2021/03/14)
 * fix [#2](https://github.com/jonathanlermitage/IconViewer/issues/2): error when opening an invalid SVG file.
 
