@@ -5,7 +5,6 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.util.IconUtil;
 import com.intellij.util.ui.JBImageIcon;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -44,8 +43,6 @@ public class ImageIconProvider extends IconProvider {
     private final ThreadLocal<Set<String>> extendedImgFormats = ThreadLocal.withInitial(Collections::emptySet);
     /** Image formats supported when Android plugin is enabled. */
     private final Set<String> androidImgFormats = new HashSet<>(Arrays.asList("webm", "webp"));
-    /** SVG image format. */
-    private final Set<String> svgImgFormats = new HashSet<>(Collections.singletonList("svg"));
 
     @Nullable
     public Icon getIcon(@NotNull PsiElement psiElement, int flags) {
@@ -62,22 +59,11 @@ public class ImageIconProvider extends IconProvider {
 
             if (androidImgFormats.contains(fileExtension)) {
                 return previewAndroidImage(canonicalFile);
-            } else if (svgImgFormats.contains(fileExtension)) {
-                return previewSvgImage(canonicalFile);
             } else {
                 return previewImageWithExtendedSupport(canonicalFile, fileExtension);
             }
         }
         return null;
-    }
-
-    @Nullable
-    private Icon previewSvgImage(@NotNull VirtualFile canonicalFile) {
-        Image image = CustomIconLoader.loadSVGFromVirtualFile(canonicalFile);
-        if (image == null) {
-            return null;
-        }
-        return IconUtil.createImageIcon(image);
     }
 
     @Nullable

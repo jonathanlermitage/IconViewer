@@ -28,6 +28,10 @@
     ]]></description>
 
     <change-notes><![CDATA[
+    1.9.0 (WIP)
+    <ul>
+      <li>internal: removed dependencies to IJ internal code used to load SVG files. Replaced by TwelveMonkeys + Apache Batik libraries. This way, future IDE updates won't break this plugin.</li>
+    </ul>
     1.8.0 (2021/04/25)
     <ul>
       <li>upgrade TwelveMonkeys library from 3.6.4 to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.7.0">3.7.0</a>.</li>
