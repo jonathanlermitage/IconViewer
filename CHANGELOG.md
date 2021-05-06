@@ -1,5 +1,8 @@
 ## Icon Viewer 2 Change Log
 
+### 1.10.0 (WIP)
+* internal: minor performance optimization.
+
 ### 1.9.0 (2021/05/05)
 * internal: removed dependencies to IJ internal code used to load SVG files. Replaced by TwelveMonkeys + Apache Batik libraries. This way, future IDE updates won't break this plugin.
 

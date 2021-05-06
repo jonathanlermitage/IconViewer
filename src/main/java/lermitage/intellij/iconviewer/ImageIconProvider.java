@@ -81,19 +81,25 @@ public class ImageIconProvider extends IconProvider {
         return null;
     }
 
+    /** Load graphics libraries (TwelveMonkeys) in order to make the JVM able to manipulate additional image formats. */
+    private synchronized void enhanceImageIOCapabilities() {
+        if (!contextUpdated.get()) {
+            Thread.currentThread().setContextClassLoader(ImageIconProvider.class.getClassLoader());
+            ImageIO.scanForPlugins();
+            contextUpdated.set(true);
+            extendedImgFormats.set(Stream.of(ImageIO.getReaderFormatNames()).map(String::toLowerCase).collect(Collectors.toSet()));
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Image file formats supported by Twelvemonkeys library: " + getExtendedImgFormats());
+            }
+            LOGGER.info("ImageIO plugins updated with TwelveMonkeys capabilities");
+        }
+    }
+
     @Nullable
     private Icon previewImageWithExtendedSupport(@NotNull VirtualFile canonicalFile, @NotNull String fileExtension) {
         try {
-            if (!contextUpdated.get()) {
-                Thread.currentThread().setContextClassLoader(ImageIconProvider.class.getClassLoader());
-                ImageIO.scanForPlugins();
-                contextUpdated.set(true);
-                extendedImgFormats.set(Stream.of(ImageIO.getReaderFormatNames()).map(String::toLowerCase).collect(Collectors.toSet()));
-                if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug("New ImageIconProvider thread - Image file formats supported by " +
-                        "Twelvemonkeys library: " + getExtendedImgFormats());
-                }
-            }
+            enhanceImageIOCapabilities();
+
             if (!extendedImgFormats.get().contains(fileExtension)) {
                 return null;
             }
