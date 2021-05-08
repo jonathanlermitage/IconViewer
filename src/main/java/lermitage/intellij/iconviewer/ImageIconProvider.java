@@ -5,7 +5,9 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.util.ui.JBImageIcon;
+import com.intellij.util.IconUtil;
+import com.intellij.util.ImageLoader;
+import com.intellij.util.RetinaImage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -114,9 +116,9 @@ public class ImageIconProvider extends IconProvider {
                     try {
                         reader.setInput(input);
                         BufferedImage originalImage = reader.read(0);
-                        Image thumbnail = originalImage.getScaledInstance(16, 16, BufferedImage.SCALE_SMOOTH);
+                        Image thumbnail = scaleImage(originalImage);
                         if (thumbnail != null) {
-                            return new JBImageIcon(thumbnail);
+                            return IconUtil.createImageIcon(thumbnail);
                         }
                     } finally {
                         reader.dispose();
@@ -139,5 +141,36 @@ public class ImageIconProvider extends IconProvider {
 
     private String getExtendedImgFormats() {
         return extendedImgFormats.get().toString();
+    }
+
+    private static Image scaleImage(Image image) {
+        int width = image.getWidth(null);
+        int height = image.getHeight(null);
+
+        if (width <= 0 || height <= 0) {
+            throw new IllegalArgumentException("Width or height are unknown.");
+        }
+
+        if (width == 16 && height == 16) {
+            return image;
+        }
+
+        if (width == 32 && height == 32) {
+            return RetinaImage.createFrom(image);
+        }
+
+        float widthToScaleTo = 16f;
+        boolean retina = false;
+
+        if (width >= 32 || height >= 32) {
+            widthToScaleTo = 32f;
+            retina = true;
+        }
+
+        Image scaledImage = ImageLoader.scaleImage(image, widthToScaleTo / Math.max(width, height));
+        if (retina) {
+            return RetinaImage.createFrom(scaledImage);
+        }
+        return scaledImage;
     }
 }
