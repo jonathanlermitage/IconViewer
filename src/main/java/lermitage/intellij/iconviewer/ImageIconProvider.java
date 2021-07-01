@@ -116,7 +116,7 @@ public class ImageIconProvider extends IconProvider {
                     try {
                         reader.setInput(input);
                         BufferedImage originalImage = reader.read(0);
-                        Image thumbnail = scaleImage(originalImage);
+                        Image thumbnail = scaleImage(originalImage, fileExtension.endsWith("svg"));
                         if (thumbnail != null) {
                             return IconUtil.createImageIcon(thumbnail);
                         }
@@ -143,9 +143,14 @@ public class ImageIconProvider extends IconProvider {
         return extendedImgFormats.get().toString();
     }
 
-    private static Image scaleImage(Image image) {
+    private static Image scaleImage(Image image, boolean isSVG) {
         int width = image.getWidth(null);
         int height = image.getHeight(null);
+
+        if (isSVG) { // generate high-quality thumbnail
+            Image scaledImage = ImageLoader.scaleImage(image, 128, 128);
+            return RetinaImage.createFrom(scaledImage, 8f, null);
+        }
 
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("Width or height are unknown.");

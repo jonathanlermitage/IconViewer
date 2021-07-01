@@ -28,8 +28,9 @@
     ]]></description>
 
     <change-notes><![CDATA[
-    1.10.0 (WIP)
+    1.10.0 (2021/07/01)
     <ul>
+      <li>improve rendering quality of SVG files.</li>
       <li>internal: minor performance optimization.</li>
     </ul>
     1.9.0 (2021/05/05)

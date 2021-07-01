@@ -1,6 +1,7 @@
 ## Icon Viewer 2 Change Log
 
-### 1.10.0 (WIP)
+### 1.10.0 (2021/07/01)
+* improve rendering quality of SVG files.
 * internal: minor performance optimization.
 
 ### 1.9.0 (2021/05/05)
