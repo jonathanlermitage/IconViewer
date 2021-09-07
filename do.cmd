@@ -6,7 +6,6 @@ if [%1] == [help] (
   echo run :    run plugin in IntelliJ
   echo runeap:  run plugin in latest IntelliJ EAP Snapshot
   echo release: package plugin
-  echo test:    run unit tests
   echo cv:      check dependencies and Gradle updates
 )
 
@@ -26,10 +25,7 @@ if [%1] == [runeap] (
   gradlew buildPlugin runIde --warning-mode all -PpluginIdeaVersion=IC-LATEST-EAP-SNAPSHOT -PpluginDownloadIdeaSources=false
 )
 if [%1] == [release] (
-  gradlew clean buildPlugin test verifyPlugin --warning-mode all
-)
-if [%1] == [test] (
-  gradlew cleanTest test verifyPlugin --warning-mode all
+  gradlew clean buildPlugin verifyPlugin --warning-mode all
 )
 if [%1] == [cv] (
   gradlew dependencyUpdates --warning-mode all

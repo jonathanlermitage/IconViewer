@@ -3,7 +3,7 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 plugins {
     id("java")
     id("idea")
-    id("org.jetbrains.intellij") version "1.1" // https://github.com/JetBrains/gradle-intellij-plugin
+    id("org.jetbrains.intellij") version "1.1.2" // https://github.com/JetBrains/gradle-intellij-plugin
     id("com.github.ben-manes.versions") version "0.39.0" // https://github.com/ben-manes/gradle-versions-plugin
 }
 
@@ -45,8 +45,6 @@ dependencies {
     // TODO Apache Batik is bundled with IJ and IJ-based IDEs (tested with PyCharm Community). If needed, see how to
     //  integrate org.apache.xmlgraphics:batik-all:1.14 without failing to load org.apache.batik.anim.dom.SAXSVGDocumentFactory
     implementation("com.twelvemonkeys.imageio:imageio-batik:$twelvemonkeysVersion") // SVG support
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
 }
 
 intellij {
@@ -63,9 +61,6 @@ tasks {
         sourceCompatibility = pluginJavaVersion
         targetCompatibility = pluginJavaVersion
         options.compilerArgs = listOf("-Xlint:deprecation")
-    }
-    withType<Test> {
-        useJUnitPlatform()
     }
     withType<DependencyUpdatesTask> {
         checkForGradleUpdate = true
