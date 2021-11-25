@@ -1,5 +1,8 @@
 ## Icon Viewer 2 Change Log
 
+### 1.11.0 (WIP)
+* improve SVG support. Thx [cherepanov](https://github.com/jonathanlermitage/IconViewer/pull/4).
+
 ### 1.10.0 (2021/07/01)
 * improve rendering quality of SVG files.
 * internal: minor performance optimization.

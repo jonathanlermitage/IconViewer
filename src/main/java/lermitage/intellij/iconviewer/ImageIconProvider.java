@@ -8,6 +8,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.util.IconUtil;
 import com.intellij.util.ImageLoader;
 import com.intellij.util.RetinaImage;
+import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,12 +19,10 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -33,7 +32,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.io.ByteArrayInputStream;
 
 /**
  * Created by David Sommer on 19.05.17.
@@ -107,19 +105,17 @@ public class ImageIconProvider extends IconProvider {
 
     private static Object getFile(@NotNull String canonicalPath, boolean isSVG) {
         File file = new File(canonicalPath);
-
-        if (!isSVG) return file;
-
-        try {
-            Path path = Path.of(file.getAbsolutePath());
-            String contents = Files.readString(path);
-            Matcher matcher = cssVarRe.matcher(contents);
-            String replaced = matcher.replaceAll("currentColor");
-    
-            return new ByteArrayInputStream(replaced.getBytes());    
-        } catch (Exception e) {
-            return null;
+        if (isSVG) {
+            try {
+                String contents = FileUtils.readFileToString(file, Charset.defaultCharset());
+                Matcher matcher = cssVarRe.matcher(contents);
+                String replaced = matcher.replaceAll("currentColor");
+                return new ByteArrayInputStream(replaced.getBytes());
+            } catch (Exception e) {
+                LOGGER.debug("Failed to read " + canonicalPath, e);
+            }
         }
+        return file;
     }
 
     @Nullable
@@ -134,21 +130,21 @@ public class ImageIconProvider extends IconProvider {
             if (canonicalPath == null) {
                 return null;
             }
-
             boolean isSVG = fileExtension.endsWith("svg");
-            ImageInputStream input = ImageIO.createImageInputStream(getFile(canonicalPath, isSVG));
-            Iterator<ImageReader> readers = ImageIO.getImageReaders(input);
-            while (readers.hasNext()) {
-                ImageReader reader = readers.next();
-                try {
-                    reader.setInput(input);
-                    BufferedImage originalImage = reader.read(0);
-                    Image thumbnail = scaleImage(originalImage, isSVG);
-                    if (thumbnail != null) {
-                        return IconUtil.createImageIcon(thumbnail);
+            try (ImageInputStream input = ImageIO.createImageInputStream(getFile(canonicalPath, isSVG))) {
+                Iterator<ImageReader> readers = ImageIO.getImageReaders(input);
+                while (readers.hasNext()) {
+                    ImageReader reader = readers.next();
+                    try {
+                        reader.setInput(input);
+                        BufferedImage originalImage = reader.read(0);
+                        Image thumbnail = scaleImage(originalImage, isSVG);
+                        if (thumbnail != null) {
+                            return IconUtil.createImageIcon(thumbnail);
+                        }
+                    } finally {
+                        reader.dispose();
                     }
-                } finally {
-                    reader.dispose();
                 }
             }
         } catch (Exception e) {
