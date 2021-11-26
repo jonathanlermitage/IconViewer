@@ -28,7 +28,7 @@
     ]]></description>
 
     <change-notes><![CDATA[
-    1.11.0 (WIP)
+    1.11.0 (2021/11/26)
     <ul>
       <li>improve SVG support. Thx <a href="https://github.com/jonathanlermitage/IconViewer/pull/4">cherepanov</a>.</li>
     </ul>
