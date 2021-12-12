@@ -28,6 +28,10 @@
     ]]></description>
 
     <change-notes><![CDATA[
+    1.12.0 (WIP)
+    <ul>
+      <li>upgrade TwelveMonkeys library to 3.8.0.</li>
+    </ul>
     1.11.0 (2021/11/26)
     <ul>
       <li>improve SVG support. Thx <a href="https://github.com/jonathanlermitage/IconViewer/pull/4">cherepanov</a>.</li>

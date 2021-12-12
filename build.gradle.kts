@@ -14,7 +14,7 @@ val pluginVersion: String by project
 val pluginJavaVersion: String by project
 val pluginEnableBuildSearchableOptions: String by project
 
-val twelvemonkeysVersion = "3.7.0"
+val twelvemonkeysVersion = "3.8.0"
 
 val inCI = System.getenv("CI") != null
 
