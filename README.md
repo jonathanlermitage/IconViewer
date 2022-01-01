@@ -21,8 +21,6 @@ Download plugin on [GitHub](https://github.com/jonathanlermitage/IconViewer/rele
 * Owner of this fork: Jonathan Lermitage (<jonathan.lermitage@gmail.com>, [linkedin](https://www.linkedin.com/in/jonathan-lermitage-092711142/))
 * Owner of the original project: [David Sommer](https://github.com/davidsommer/IconViewer).
 
-## Contributors
-
 ## Build
 
 ### Gradle commands
