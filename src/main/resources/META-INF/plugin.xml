@@ -28,78 +28,13 @@
     ]]></description>
 
     <change-notes><![CDATA[
+    1.14.0 (2022/02/23)
+    <ul>
+      <li>upgrade TwelveMonkeys library to 3.8.2.</li>
+    </ul>
     1.13.0 (2021/12/28)
     <ul>
       <li>upgrade TwelveMonkeys library to 3.8.1.</li>
-    </ul>
-    1.12.0 (2021/12/13)
-    <ul>
-      <li>upgrade TwelveMonkeys library to 3.8.0.</li>
-    </ul>
-    1.11.0 (2021/11/26)
-    <ul>
-      <li>improve SVG support. Thx <a href="https://github.com/jonathanlermitage/IconViewer/pull/4">cherepanov</a>.</li>
-    </ul>
-    1.10.0 (2021/07/01)
-    <ul>
-      <li>improve rendering quality of SVG files.</li>
-      <li>internal: minor performance optimization.</li>
-    </ul>
-    1.9.0 (2021/05/05)
-    <ul>
-      <li>internal: removed dependencies to IJ internal code used to load SVG files. Replaced by TwelveMonkeys + Apache Batik libraries. This way, future IDE updates won't break this plugin.</li>
-    </ul>
-    1.8.0 (2021/04/25)
-    <ul>
-      <li>upgrade TwelveMonkeys library from 3.6.4 to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.7.0">3.7.0</a>.</li>
-    </ul>
-    1.7.1 (2021/03/14)
-    <ul>
-      <li>fix <a href="https://github.com/jonathanlermitage/IconViewer/issues/2">#2</a>: error when opening an invalid SVG file.</li>
-    </ul>
-    1.7.0 (2021/03/08)
-    <ul>
-      <li>upgrade TwelveMonkeys library from 3.6.3 to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.6.4">3.6.4</a>: Fix infinite loops in corrupted JPEGs.</li>
-    </ul>
-    1.6.0 (2021/03/03)
-    <ul>
-      <li>upgrade TwelveMonkeys library from 3.6.2 to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.6.3">3.6.3</a>.</li>
-    </ul>
-    1.5.1 (2021/01/27)
-    <ul>
-      <li>render non-square SVG images, don't throw an exception.</li>
-    </ul>
-    1.5.0 (2021/01/25)
-    <ul>
-      <li>upgrade TwelveMonkeys library from 3.6.1 to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.6.2">3.6.2</a>.</li>
-    </ul>
-    1.4.1 (2020/11/30)
-    <ul>
-      <li>fix <a href="https://github.com/jonathanlermitage/IconViewer/issues/1">#1</a>: I/O error reading PNG header.</li>
-    </ul>
-    1.4.0 (2020/11/29)
-    <ul>
-      <li>upgrade TwelveMonkeys library from 3.6 to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.6.1">3.6.1</a>.</li>
-      <li>fix usage of TwelveMonkeys library, it should fix support of many file formats.</li>
-      <li>code cleanup and minor performance improvements.</li>
-    </ul>
-    1.3.0 (2020/07/18)
-    <ul>
-      <li>upgrade TwelveMonkeys library from 3.5 to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.6">3.6</a>.</li>
-    </ul>
-    1.2.0 (2020/04/08)
-    <ul>
-      <li>support more image formats by using <a href="https://github.com/haraldk/TwelveMonkeys">TwelveMonkeys library</a>. Thx <a href="https://youtrack.jetbrains.com/issue/IDEA-236055#focus=streamItem-27-4037903.0-0">JetBrains support</a>.</li>
-    </ul>
-    1.1.0 (2020/03/26)
-    <ul>
-      <li>improved images rendering quality.</li>
-    </ul>
-    1.0.0 (2020/03/24)
-    <ul>
-      <li>first release, based on IconViewer 1.15.</li>
-      <li>project migrated to Gradle.</li>
-      <li>fix <a href="https://github.com/davidsommer/IconViewer/issues/9">issue #9: ArrayIndexOutOfBoundsException</a>.</li>
     </ul>
     <p>
         See <a href="https://github.com/jonathanlermitage/IconViewer/blob/master/CHANGELOG.md">changelog</a>

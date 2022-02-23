@@ -1,5 +1,8 @@
 ## Icon Viewer 2 Change Log
 
+### 1.14.0 (2022/02/23)
+* upgrade TwelveMonkeys library to 3.8.2.
+
 ### 1.13.0 (2021/12/28)
 * upgrade TwelveMonkeys library to 3.8.1.
 
