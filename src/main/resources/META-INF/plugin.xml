@@ -28,13 +28,13 @@
     ]]></description>
 
     <change-notes><![CDATA[
+    1.15.0 (2022/08/20)
+    <ul>
+      <li>upgrade TwelveMonkeys library to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.8.3">3.8.3</a>.</li>
+    </ul>
     1.14.0 (2022/02/23)
     <ul>
-      <li>upgrade TwelveMonkeys library to 3.8.2.</li>
-    </ul>
-    1.13.0 (2021/12/28)
-    <ul>
-      <li>upgrade TwelveMonkeys library to 3.8.1.</li>
+      <li>upgrade TwelveMonkeys library to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.8.2">3.8.2</a>.</li>
     </ul>
     <p>
         See <a href="https://github.com/jonathanlermitage/IconViewer/blob/master/CHANGELOG.md">changelog</a>
