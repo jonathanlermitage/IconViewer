@@ -2,7 +2,7 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins {
     id("java")
-    id("org.jetbrains.intellij") version "1.8.0" // https://github.com/JetBrains/gradle-intellij-plugin and https://lp.jetbrains.com/gradle-intellij-plugin/
+    id("org.jetbrains.intellij") version "1.9.0" // https://github.com/JetBrains/gradle-intellij-plugin and https://lp.jetbrains.com/gradle-intellij-plugin/
     id("com.github.ben-manes.versions") version "0.42.0" // https://github.com/ben-manes/gradle-versions-plugin
 }
 
@@ -14,7 +14,7 @@ val pluginVersion: String by project
 val pluginJavaVersion: String by project
 val pluginEnableBuildSearchableOptions: String by project
 
-val twelvemonkeysVersion = "3.8.3"
+val twelvemonkeysVersion = "3.9.0"
 
 val inCI = System.getenv("CI") != null
 
