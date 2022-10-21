@@ -14,8 +14,6 @@ val pluginVersion: String by project
 val pluginJavaVersion: String by project
 val pluginEnableBuildSearchableOptions: String by project
 
-val twelvemonkeysVersion = "3.9.0"
-
 val inCI = System.getenv("CI") != null
 
 logger.quiet("Will use IDEA $pluginIdeaVersion and Java $pluginJavaVersion")
@@ -26,6 +24,8 @@ version = pluginVersion
 repositories {
     mavenCentral()
 }
+
+val twelvemonkeysVersion = "3.9.2"
 
 dependencies {
     implementation("com.twelvemonkeys.imageio:imageio-core:$twelvemonkeysVersion") // https://github.com/haraldk/TwelveMonkeys/releases

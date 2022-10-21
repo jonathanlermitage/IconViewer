@@ -1,5 +1,8 @@
 ## Icon Viewer 2 Change Log
 
+### 1.17.0 (2022/10/21)
+* upgrade TwelveMonkeys library to [3.9.2](https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.9.2): fixes a serious performance issue in the lossless WebP decoding.
+
 ### 1.16.0 (2022/10/15)
 * upgrade TwelveMonkeys library to [3.9.0](https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.9.0).
 
