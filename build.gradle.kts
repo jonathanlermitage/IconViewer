@@ -2,7 +2,7 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins {
     id("java")
-    id("org.jetbrains.intellij") version "1.9.0" // https://github.com/JetBrains/gradle-intellij-plugin and https://lp.jetbrains.com/gradle-intellij-plugin/
+    id("org.jetbrains.intellij") version "1.10.0" // https://github.com/JetBrains/gradle-intellij-plugin and https://lp.jetbrains.com/gradle-intellij-plugin/
     id("com.github.ben-manes.versions") version "0.42.0" // https://github.com/ben-manes/gradle-versions-plugin
 }
 
@@ -12,7 +12,6 @@ val pluginDownloadIdeaSources: String by project
 val pluginInstrumentPluginCode: String by project
 val pluginVersion: String by project
 val pluginJavaVersion: String by project
-val pluginEnableBuildSearchableOptions: String by project
 
 val inCI = System.getenv("CI") != null
 
@@ -25,7 +24,7 @@ repositories {
     mavenCentral()
 }
 
-val twelvemonkeysVersion = "3.9.3"
+val twelvemonkeysVersion = "3.9.4"
 
 dependencies {
     implementation("com.twelvemonkeys.imageio:imageio-core:$twelvemonkeysVersion") // https://github.com/haraldk/TwelveMonkeys/releases
@@ -86,8 +85,7 @@ tasks {
         jvmArgs("-Xmx1024m")
     }
     buildSearchableOptions {
-        enabled = pluginEnableBuildSearchableOptions.toBoolean()
-        jvmArgs = listOf("--add-exports", "java.base/jdk.internal.vm=ALL-UNNAMED")
+        enabled = false
     }
 }
 

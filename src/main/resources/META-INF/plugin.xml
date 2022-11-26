@@ -28,6 +28,10 @@
     ]]></description>
 
     <change-notes><![CDATA[
+    1.19.0 (2022/11/26)
+    <ul>
+      <li>upgrade TwelveMonkeys library to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.9.4">3.9.4</a>: various fixes.</li>
+    </ul>
     1.18.0 (2022/10/22)
     <ul>
       <li>upgrade TwelveMonkeys library to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.9.3">3.9.3</a>: fixes WebP alpha decoding bug.</li>
