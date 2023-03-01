@@ -28,6 +28,10 @@
     ]]></description>
 
     <change-notes><![CDATA[
+    1.19.1 (2023/02/28)
+    <ul>
+      <li>fix SVG support with IDE 2023.1 EAP.</li>
+    </ul>
     1.19.0 (2022/11/26)
     <ul>
       <li>upgrade TwelveMonkeys library to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.9.4">3.9.4</a>: various fixes.</li>

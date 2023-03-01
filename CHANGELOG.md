@@ -1,5 +1,8 @@
 ## Icon Viewer 2 Change Log
 
+### 1.19.1 (2023/02/28)
+* fix SVG support with IDE 2023.1 EAP.
+
 ### 1.19.0 (2022/11/26)
 * upgrade TwelveMonkeys library to [3.9.4](https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.9.4): various fixes.
 
