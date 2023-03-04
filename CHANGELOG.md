@@ -1,5 +1,8 @@
 ## Icon Viewer 2 Change Log
 
+### 1.19.2 (2023/03/04)
+* revert 1.19.1 fix as it may break 2022.3.2, and I found some test cases that break IDE 2023.1 EAP too. It seems that IDE 2023.1 EAP broke SVG support...
+
 ### 1.19.1 (2023/02/28)
 * fix SVG support with IDE 2023.1 EAP.
 
