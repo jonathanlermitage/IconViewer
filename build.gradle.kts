@@ -2,8 +2,9 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins {
     id("java")
-    id("org.jetbrains.intellij") version "1.13.0" // https://github.com/JetBrains/gradle-intellij-plugin and https://lp.jetbrains.com/gradle-intellij-plugin/
+    id("org.jetbrains.intellij") version "1.13.1" // https://github.com/JetBrains/gradle-intellij-plugin and https://lp.jetbrains.com/gradle-intellij-plugin/
     id("com.github.ben-manes.versions") version "0.46.0" // https://github.com/ben-manes/gradle-versions-plugin
+    id("biz.lermitage.oga") version "1.1.1"
 }
 
 // Import variables from gradle.properties file
@@ -41,7 +42,13 @@ dependencies {
     implementation("com.twelvemonkeys.imageio:imageio-tga:$twelvemonkeysVersion")  // https://github.com/haraldk/TwelveMonkeys/wiki/TGA-Plugin
     implementation("com.twelvemonkeys.imageio:imageio-tiff:$twelvemonkeysVersion") // https://github.com/haraldk/TwelveMonkeys/wiki/TIFF-Plugin
     implementation("com.twelvemonkeys.imageio:imageio-batik:$twelvemonkeysVersion") // SVG support
-    //implementation("org.apache.xmlgraphics:batik-all:1.16")
+
+    // IDE 2023 workaround:
+    implementation("com.twelvemonkeys.imageio:imageio:$twelvemonkeysVersion")
+    implementation("org.apache.xmlgraphics:batik-all:1.16")
+    implementation("commons-io:commons-io:2.11.0")
+    implementation("xerces:xercesImpl:2.12.2")
+
     //implementation("org.apache.xmlgraphics:xmlgraphics-commons:2.8")
     //implementation("org.bluestemsoftware.open.maven.tparty:xerces-impl:2.9.0")
     //implementation("xerces:xmlParserAPIs:2.6.2")
@@ -51,7 +58,7 @@ intellij {
     downloadSources.set(pluginDownloadIdeaSources.toBoolean() && !inCI)
     instrumentCode.set(pluginInstrumentPluginCode.toBoolean())
     pluginName.set("Icon Viewer 2")
-    sandboxDir.set("${rootProject.projectDir}/.idea-sandbox/${shortIdeVersion(pluginIdeaVersion)}")
+    sandboxDir.set("${rootProject.projectDir}/.idea-sandbox/${shortenIdeVersion(pluginIdeaVersion)}")
     updateSinceUntilBuild.set(false)
     version.set(pluginIdeaVersion)
 }
@@ -102,12 +109,15 @@ fun isNonStable(version: String): Boolean {
 
 /** Return an IDE version string without the optional PATCH number.
  * In other words, replace IDE-MAJOR-MINOR(-PATCH) by IDE-MAJOR-MINOR. */
-fun shortIdeVersion(version: String): String {
+fun shortenIdeVersion(version: String): String {
+    if (version.contains("SNAPSHOT", ignoreCase = true)) {
+        return version
+    }
     val matcher = Regex("[A-Za-z]+[\\-]?[0-9]+[\\.]{1}[0-9]+")
     return try {
         matcher.findAll(version).map { it.value }.toList()[0]
     } catch (e: Exception) {
-        logger.warn("Failed to shorten IDE version $version", e)
+        logger.warn("Failed to shorten IDE version $version: ${e.message}")
         version
     }
 }

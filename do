@@ -14,6 +14,7 @@ for ((cmd = 1; cmd <= $#; cmd++)); do
         echo "runeap:  run plugin in latest IntelliJ EAP Snapshot"
         echo "release: package plugin"
         echo "cv:      check dependencies and Gradle updates"
+        echo "oga:     check for deprecated groupId and artifactId coordinates"
         ;;
 
     "w")
@@ -41,6 +42,10 @@ for ((cmd = 1; cmd <= $#; cmd++)); do
 
     "cv")
         ./gradlew dependencyUpdates --warning-mode all
+        ;;
+
+    "oga")
+        ./gradlew gradlew biz-lermitage-oga-gradle-check --warning-mode all
         ;;
 
     esac

@@ -28,6 +28,11 @@
     ]]></description>
 
     <change-notes><![CDATA[
+    1.19.3 (WIP)
+    <ul>
+      <li>fix SVG support with IDE 2023.1.</li>
+      <li>new minimal IDE version is now 2023.1. Latest IDE introduced breaking changes, which prevents me from supporting previous IDEs.</li>
+    </ul>
     1.19.2 (2023/03/04)
     <ul>
       <li>revert 1.19.1 fix as it may break 2022.3.2, and I found some test cases that break IDE 2023.1 EAP too. It seems that IDE 2023.1 EAP broke SVG support...</li>
@@ -40,26 +45,6 @@
     <ul>
       <li>upgrade TwelveMonkeys library to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.9.4">3.9.4</a>: various fixes.</li>
     </ul>
-    1.18.0 (2022/10/22)
-    <ul>
-      <li>upgrade TwelveMonkeys library to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.9.3">3.9.3</a>: fixes WebP alpha decoding bug.</li>
-    </ul>
-    1.17.0 (2022/10/21)
-    <ul>
-      <li>upgrade TwelveMonkeys library to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.9.2">3.9.2</a>: fixes a serious performance issue in the lossless WebP decoding.</li>
-    </ul>
-    1.16.0 (2022/10/15)
-    <ul>
-      <li>upgrade TwelveMonkeys library to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.9.0">3.9.0</a>.</li>
-    </ul>
-    1.15.0 (2022/08/20)
-    <ul>
-      <li>upgrade TwelveMonkeys library to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.8.3">3.8.3</a>.</li>
-    </ul>
-    1.14.0 (2022/02/23)
-    <ul>
-      <li>upgrade TwelveMonkeys library to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.8.2">3.8.2</a>.</li>
-    </ul>
     <p>
         See <a href="https://github.com/jonathanlermitage/IconViewer/blob/master/CHANGELOG.md">changelog</a>
         and <a href="https://github.com/jonathanlermitage/IconViewer/blob/master/README.md">readme</a> on GitHub.
@@ -68,7 +53,7 @@
     </change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="193.0"/>
+    <idea-version since-build="230.0"/>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
