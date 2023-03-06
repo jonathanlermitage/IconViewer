@@ -6,11 +6,17 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.util.IconUtil;
-import com.intellij.util.ImageLoader;
-import com.intellij.util.RetinaImage;
+import com.intellij.util.ui.ImageUtil;
+import org.apache.batik.anim.dom.SVGDOMImplementation;
+import org.apache.batik.transcoder.TranscoderInput;
+import org.apache.batik.transcoder.TranscoderOutput;
+import org.apache.batik.transcoder.TranscodingHints;
+import org.apache.batik.transcoder.image.ImageTranscoder;
+import org.apache.batik.util.SVGConstants;
 import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.w3c.dom.DOMImplementation;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -43,13 +49,21 @@ public class ImageIconProvider extends IconProvider {
 
     private static final Logger LOGGER = Logger.getInstance(ImageIconProvider.class);
     private static final int SCALING_SIZE = 16;
+    private static final float SVG_SIZE_BEFORE_RESCALING = 128f;
     private static final Pattern cssVarRe = Pattern.compile("var\\([-\\w]+\\)");
 
-    private final ThreadLocal<Boolean> contextUpdated = ThreadLocal.withInitial(() -> false);
+    private final ThreadLocal<TranscodingHints> localTranscoderHints = ThreadLocal.withInitial(() -> null);
+    private final ThreadLocal<DOMImplementation> localSVGDOMImplementation = ThreadLocal.withInitial(() -> null);
+    private final ThreadLocal<Boolean> localContextUpdated = ThreadLocal.withInitial(() -> false);
 
-    /** Image formats supported by TwelveMonkeys. */
+    /**
+     * Image formats supported by TwelveMonkeys.
+     */
     private final ThreadLocal<Set<String>> extendedImgFormats = ThreadLocal.withInitial(Collections::emptySet);
-    /** Image formats supported when Android plugin is enabled. */
+
+    /**
+     * Image formats supported when Android plugin is enabled.
+     */
     private final Set<String> androidImgFormats = new HashSet<>(Arrays.asList("webm", "webp"));
 
     @Nullable
@@ -84,17 +98,19 @@ public class ImageIconProvider extends IconProvider {
             Image scaledInstance = read.getScaledInstance(SCALING_SIZE, SCALING_SIZE, BufferedImage.SCALE_SMOOTH);
             return scaledInstance == null ? null : new ImageIcon(scaledInstance);
         } catch (IOException e) {
-            logWarn(e, canonicalFile);
+            logDebug(e, canonicalFile);
         }
         return null;
     }
 
-    /** Load graphics libraries (TwelveMonkeys) in order to make the JVM able to manipulate additional image formats. */
+    /**
+     * Load graphics libraries (TwelveMonkeys) in order to make the JVM able to manipulate additional image formats.
+     */
     private synchronized void enhanceImageIOCapabilities() {
-        if (!contextUpdated.get()) {
+        if (!localContextUpdated.get()) {
             Thread.currentThread().setContextClassLoader(ImageIconProvider.class.getClassLoader());
             ImageIO.scanForPlugins();
-            contextUpdated.set(true);
+            localContextUpdated.set(true);
             extendedImgFormats.set(Stream.of(ImageIO.getReaderFormatNames()).map(String::toLowerCase).collect(Collectors.toSet()));
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("Image file formats supported by Twelvemonkeys library: " + getExtendedImgFormats());
@@ -103,19 +119,12 @@ public class ImageIconProvider extends IconProvider {
         }
     }
 
-    private static Object getFile(@NotNull String canonicalPath, boolean isSVG) {
+    private static ByteArrayInputStream canonicalPathToByteArrayInputStream(@NotNull String canonicalPath) throws IOException {
         File file = new File(canonicalPath);
-        if (isSVG) {
-            try {
-                String contents = FileUtils.readFileToString(file, Charset.defaultCharset());
-                Matcher matcher = cssVarRe.matcher(contents);
-                String replaced = matcher.replaceAll("currentColor");
-                return new ByteArrayInputStream(replaced.getBytes());
-            } catch (Exception e) {
-                LOGGER.debug("Failed to read " + canonicalPath, e);
-            }
-        }
-        return file;
+        String contents = FileUtils.readFileToString(file, Charset.defaultCharset());
+        Matcher matcher = cssVarRe.matcher(contents);
+        String replaced = matcher.replaceAll("currentColor");
+        return new ByteArrayInputStream(replaced.getBytes());
     }
 
     @Nullable
@@ -130,25 +139,68 @@ public class ImageIconProvider extends IconProvider {
             if (canonicalPath == null) {
                 return null;
             }
-            boolean isSVG = fileExtension.endsWith("svg");
-            try (ImageInputStream input = ImageIO.createImageInputStream(getFile(canonicalPath, isSVG))) {
-                Iterator<ImageReader> readers = ImageIO.getImageReaders(input);
-                while (readers.hasNext()) {
-                    ImageReader reader = readers.next();
-                    try {
-                        reader.setInput(input);
-                        BufferedImage originalImage = reader.read(0);
-                        Image thumbnail = scaleImage(originalImage, isSVG);
-                        if (thumbnail != null) {
-                            return IconUtil.createImageIcon(thumbnail);
+            if (fileExtension.endsWith("svg")) {
+                // https://stackoverflow.com/questions/11435671/how-to-get-a-bufferedimage-from-a-svg
+                TranscodingHints transcoderHints = localTranscoderHints.get();
+                if (transcoderHints == null) {
+                    transcoderHints = new TranscodingHints();
+                    transcoderHints.put(ImageTranscoder.KEY_HEIGHT, SVG_SIZE_BEFORE_RESCALING);
+                    transcoderHints.put(ImageTranscoder.KEY_WIDTH, SVG_SIZE_BEFORE_RESCALING);
+                    transcoderHints.put(ImageTranscoder.KEY_XML_PARSER_VALIDATING, false);
+                    transcoderHints.put(ImageTranscoder.KEY_DOCUMENT_ELEMENT_NAMESPACE_URI, SVGConstants.SVG_NAMESPACE_URI);
+                    transcoderHints.put(ImageTranscoder.KEY_DOCUMENT_ELEMENT, "svg");
+
+                    DOMImplementation domImplementation = localSVGDOMImplementation.get();
+                    if (domImplementation == null) {
+                        domImplementation = SVGDOMImplementation.getDOMImplementation();
+                        localSVGDOMImplementation.set(domImplementation);
+                    }
+                    transcoderHints.put(ImageTranscoder.KEY_DOM_IMPLEMENTATION, domImplementation);
+
+                    localTranscoderHints.set(transcoderHints);
+                }
+                ByteArrayInputStream inputStream = canonicalPathToByteArrayInputStream(canonicalPath);
+                TranscoderInput transcoderInput = new TranscoderInput(inputStream);
+                BufferedImage[] imagePointer = new BufferedImage[1];
+                ImageTranscoder t = new ImageTranscoder() {
+
+                    @Override
+                    public BufferedImage createImage(int w, int h) {
+                        return ImageUtil.createImage(w, h, BufferedImage.TYPE_INT_ARGB);
+                    }
+
+                    @Override
+                    public void writeImage(BufferedImage bufferedImage, TranscoderOutput transcoderOutput) {
+                        imagePointer[0] = bufferedImage;
+                    }
+                };
+                t.setTranscodingHints(transcoderHints);
+                t.transcode(transcoderInput, null);
+                BufferedImage bufferedImage = imagePointer[0];
+                Image thumbnail = scaleImage(bufferedImage);
+                if (thumbnail != null) {
+                    return IconUtil.createImageIcon(thumbnail);
+                }
+            } else {
+                try (ImageInputStream input = ImageIO.createImageInputStream(new File(canonicalPath))) {
+                    Iterator<ImageReader> readers = ImageIO.getImageReaders(input);
+                    while (readers.hasNext()) {
+                        ImageReader reader = readers.next();
+                        try {
+                            reader.setInput(input);
+                            BufferedImage originalImage = reader.read(0);
+                            Image thumbnail = scaleImage(originalImage);
+                            if (thumbnail != null) {
+                                return IconUtil.createImageIcon(thumbnail);
+                            }
+                        } finally {
+                            reader.dispose();
                         }
-                    } finally {
-                        reader.dispose();
                     }
                 }
             }
         } catch (Exception e) {
-            logWarn(e, canonicalFile);
+            logDebug(e, canonicalFile);
         }
         return null;
     }
@@ -157,47 +209,17 @@ public class ImageIconProvider extends IconProvider {
         return ImageIO.read(new File(canonicalFile.getPath()));
     }
 
-    private void logWarn(Exception e, @NotNull VirtualFile virtualFile) {
-        LOGGER.warn("Error loading preview Icon - " + virtualFile.getCanonicalPath(), e);
+    private void logDebug(Exception e, @NotNull VirtualFile virtualFile) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Error loading preview Icon - " + virtualFile.getCanonicalPath(), e);
+        }
     }
 
     private String getExtendedImgFormats() {
         return extendedImgFormats.get().toString();
     }
 
-    private static Image scaleImage(Image image, boolean isSVG) {
-        int width = image.getWidth(null);
-        int height = image.getHeight(null);
-
-        if (isSVG) { // generate high-quality thumbnail
-            Image scaledImage = ImageLoader.scaleImage(image, 128, 128);
-            return RetinaImage.createFrom(scaledImage, 8f, null);
-        }
-
-        if (width <= 0 || height <= 0) {
-            throw new IllegalArgumentException("Width or height are unknown.");
-        }
-
-        if (width == 16 && height == 16) {
-            return image;
-        }
-
-        if (width == 32 && height == 32) {
-            return RetinaImage.createFrom(image);
-        }
-
-        float widthToScaleTo = 16f;
-        boolean retina = false;
-
-        if (width >= 32 || height >= 32) {
-            widthToScaleTo = 32f;
-            retina = true;
-        }
-
-        Image scaledImage = ImageLoader.scaleImage(image, widthToScaleTo / Math.max(width, height));
-        if (retina) {
-            return RetinaImage.createFrom(scaledImage);
-        }
-        return scaledImage;
+    private static Image scaleImage(Image image) {
+        return ImageUtil.scaleImage(image, SCALING_SIZE, SCALING_SIZE);
     }
 }

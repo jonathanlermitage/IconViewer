@@ -42,16 +42,6 @@ dependencies {
     implementation("com.twelvemonkeys.imageio:imageio-tga:$twelvemonkeysVersion")  // https://github.com/haraldk/TwelveMonkeys/wiki/TGA-Plugin
     implementation("com.twelvemonkeys.imageio:imageio-tiff:$twelvemonkeysVersion") // https://github.com/haraldk/TwelveMonkeys/wiki/TIFF-Plugin
     implementation("com.twelvemonkeys.imageio:imageio-batik:$twelvemonkeysVersion") // SVG support
-
-    // IDE 2023 workaround:
-    implementation("com.twelvemonkeys.imageio:imageio:$twelvemonkeysVersion")
-    implementation("org.apache.xmlgraphics:batik-all:1.16")
-    implementation("commons-io:commons-io:2.11.0")
-    implementation("xerces:xercesImpl:2.12.2")
-
-    //implementation("org.apache.xmlgraphics:xmlgraphics-commons:2.8")
-    //implementation("org.bluestemsoftware.open.maven.tparty:xerces-impl:2.9.0")
-    //implementation("xerces:xmlParserAPIs:2.6.2")
 }
 
 intellij {

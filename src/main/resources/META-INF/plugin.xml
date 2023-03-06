@@ -28,10 +28,10 @@
     ]]></description>
 
     <change-notes><![CDATA[
-    1.19.3 (WIP)
+    1.20.0 (WIP)
     <ul>
       <li>fix SVG support with IDE 2023.1.</li>
-      <li>new minimal IDE version is now 2023.1. Latest IDE introduced breaking changes, which prevents me from supporting previous IDEs.</li>
+      <li>important code rework.</li>
     </ul>
     1.19.2 (2023/03/04)
     <ul>
@@ -53,7 +53,7 @@
     </change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="230.0"/>
+    <idea-version since-build="193.0"/>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
