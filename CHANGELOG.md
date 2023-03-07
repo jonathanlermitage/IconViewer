@@ -1,7 +1,7 @@
 ## Icon Viewer 2 Change Log
 
-### 1.20.0 (WIP)
-* fix SVG support with IDE 2023.1.
+### 1.20.0 (2023/03/07)
+* fix SVG support with IDE 2023 EAP.
 * important code rework.
 
 ### 1.19.2 (2023/03/04)

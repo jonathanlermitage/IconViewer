@@ -28,9 +28,9 @@
     ]]></description>
 
     <change-notes><![CDATA[
-    1.20.0 (WIP)
+    1.20.0 (2023/03/07)
     <ul>
-      <li>fix SVG support with IDE 2023.1.</li>
+      <li>fix SVG support with IDE 2023 EAP.</li>
       <li>important code rework.</li>
     </ul>
     1.19.2 (2023/03/04)
