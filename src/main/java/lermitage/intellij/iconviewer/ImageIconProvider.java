@@ -13,7 +13,6 @@ import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.TranscodingHints;
 import org.apache.batik.transcoder.image.ImageTranscoder;
 import org.apache.batik.util.SVGConstants;
-import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.DOMImplementation;
@@ -21,19 +20,15 @@ import org.w3c.dom.DOMImplementation;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import java.awt.Image;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.nio.file.Files;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -108,7 +103,7 @@ public class ImageIconProvider extends IconProvider {
      */
     private synchronized void enhanceImageIOCapabilities() {
         if (!localContextUpdated.get()) {
-            Thread.currentThread().setContextClassLoader(ImageIconProvider.class.getClassLoader());
+            Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
             ImageIO.scanForPlugins();
             localContextUpdated.set(true);
             extendedImgFormats.set(Stream.of(ImageIO.getReaderFormatNames()).map(String::toLowerCase).collect(Collectors.toSet()));
@@ -121,7 +116,7 @@ public class ImageIconProvider extends IconProvider {
 
     private static ByteArrayInputStream canonicalPathToByteArrayInputStream(@NotNull String canonicalPath) throws IOException {
         File file = new File(canonicalPath);
-        String contents = FileUtils.readFileToString(file, Charset.defaultCharset());
+        String contents = Files.readString(file.toPath(), Charset.defaultCharset());
         Matcher matcher = cssVarRe.matcher(contents);
         String replaced = matcher.replaceAll("currentColor");
         return new ByteArrayInputStream(replaced.getBytes());

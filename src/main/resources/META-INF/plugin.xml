@@ -27,33 +27,8 @@
       <i>For questions, issues or contributions, please see the <a href="https://github.com/jonathanlermitage/IconViewer">GitHub project</a></i>.
     ]]></description>
 
-    <change-notes><![CDATA[
-    1.20.0 (2023/03/07)
-    <ul>
-      <li>fix SVG support with IDE 2023 EAP.</li>
-      <li>important code rework.</li>
-    </ul>
-    1.19.2 (2023/03/04)
-    <ul>
-      <li>revert 1.19.1 fix as it may break 2022.3.2, and I found some test cases that break IDE 2023.1 EAP too. It seems that IDE 2023.1 EAP broke SVG support...</li>
-    </ul>
-    1.19.1 (2023/02/28)
-    <ul>
-      <li>fix SVG support with IDE 2023.1 EAP.</li>
-    </ul>
-    1.19.0 (2022/11/26)
-    <ul>
-      <li>upgrade TwelveMonkeys library to <a href="https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.9.4">3.9.4</a>: various fixes.</li>
-    </ul>
-    <p>
-        See <a href="https://github.com/jonathanlermitage/IconViewer/blob/master/CHANGELOG.md">changelog</a>
-        and <a href="https://github.com/jonathanlermitage/IconViewer/blob/master/README.md">readme</a> on GitHub.
-    </p>
-    ]]>
-    </change-notes>
-
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="193.0"/>
+    <idea-version since-build="231"/>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
