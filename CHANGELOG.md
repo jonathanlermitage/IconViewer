@@ -2,6 +2,7 @@
 
 ### 1.21.0 (WIP)
 * fix SVG support with IDE 2023.2 EAP.
+* important code rework, replaced Apache Batik by JSVG for SVG rendering.
 
 ### 1.20.0 (2023/03/07)
 * fix SVG support with IDE 2023.1 EAP.

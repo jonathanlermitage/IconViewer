@@ -1,5 +1,8 @@
 package lermitage.intellij.iconviewer;
 
+import com.github.weisj.jsvg.SVGDocument;
+import com.github.weisj.jsvg.geometry.size.FloatSize;
+import com.github.weisj.jsvg.parser.SVGLoader;
 import com.intellij.ide.IconProvider;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -7,28 +10,27 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.util.IconUtil;
 import com.intellij.util.ui.ImageUtil;
-import org.apache.batik.anim.dom.SVGDOMImplementation;
-import org.apache.batik.transcoder.TranscoderInput;
-import org.apache.batik.transcoder.TranscoderOutput;
-import org.apache.batik.transcoder.TranscodingHints;
-import org.apache.batik.transcoder.image.ImageTranscoder;
-import org.apache.batik.util.SVGConstants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.w3c.dom.DOMImplementation;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -44,11 +46,8 @@ public class ImageIconProvider extends IconProvider {
 
     private static final Logger LOGGER = Logger.getInstance(ImageIconProvider.class);
     private static final int SCALING_SIZE = 16;
-    private static final float SVG_SIZE_BEFORE_RESCALING = 128f;
     private static final Pattern cssVarRe = Pattern.compile("var\\([-\\w]+\\)");
 
-    private final ThreadLocal<TranscodingHints> localTranscoderHints = ThreadLocal.withInitial(() -> null);
-    private final ThreadLocal<DOMImplementation> localSVGDOMImplementation = ThreadLocal.withInitial(() -> null);
     private final ThreadLocal<Boolean> localContextUpdated = ThreadLocal.withInitial(() -> false);
 
     /**
@@ -107,6 +106,7 @@ public class ImageIconProvider extends IconProvider {
             ImageIO.scanForPlugins();
             localContextUpdated.set(true);
             extendedImgFormats.set(Stream.of(ImageIO.getReaderFormatNames()).map(String::toLowerCase).collect(Collectors.toSet()));
+            extendedImgFormats.get().add("svg");
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("Image file formats supported by Twelvemonkeys library: " + getExtendedImgFormats());
             }
@@ -135,44 +135,16 @@ public class ImageIconProvider extends IconProvider {
                 return null;
             }
             if (fileExtension.endsWith("svg")) {
-                // https://stackoverflow.com/questions/11435671/how-to-get-a-bufferedimage-from-a-svg
-                TranscodingHints transcoderHints = localTranscoderHints.get();
-                if (transcoderHints == null) {
-                    transcoderHints = new TranscodingHints();
-                    transcoderHints.put(ImageTranscoder.KEY_HEIGHT, SVG_SIZE_BEFORE_RESCALING);
-                    transcoderHints.put(ImageTranscoder.KEY_WIDTH, SVG_SIZE_BEFORE_RESCALING);
-                    transcoderHints.put(ImageTranscoder.KEY_XML_PARSER_VALIDATING, false);
-                    transcoderHints.put(ImageTranscoder.KEY_DOCUMENT_ELEMENT_NAMESPACE_URI, SVGConstants.SVG_NAMESPACE_URI);
-                    transcoderHints.put(ImageTranscoder.KEY_DOCUMENT_ELEMENT, "svg");
-
-                    DOMImplementation domImplementation = localSVGDOMImplementation.get();
-                    if (domImplementation == null) {
-                        domImplementation = SVGDOMImplementation.getDOMImplementation();
-                        localSVGDOMImplementation.set(domImplementation);
-                    }
-                    transcoderHints.put(ImageTranscoder.KEY_DOM_IMPLEMENTATION, domImplementation);
-
-                    localTranscoderHints.set(transcoderHints);
+                SVGLoader svgLoader = new SVGLoader();
+                SVGDocument svgDocument = svgLoader.load(canonicalPathToByteArrayInputStream(canonicalPath));
+                if (svgDocument == null) {
+                    return null;
                 }
-                ByteArrayInputStream inputStream = canonicalPathToByteArrayInputStream(canonicalPath);
-                TranscoderInput transcoderInput = new TranscoderInput(inputStream);
-                BufferedImage[] imagePointer = new BufferedImage[1];
-                ImageTranscoder t = new ImageTranscoder() {
-
-                    @Override
-                    public BufferedImage createImage(int w, int h) {
-                        return ImageUtil.createImage(w, h, BufferedImage.TYPE_INT_ARGB);
-                    }
-
-                    @Override
-                    public void writeImage(BufferedImage bufferedImage, TranscoderOutput transcoderOutput) {
-                        imagePointer[0] = bufferedImage;
-                    }
-                };
-                t.setTranscodingHints(transcoderHints);
-                t.transcode(transcoderInput, null);
-                BufferedImage bufferedImage = imagePointer[0];
-                Image thumbnail = scaleImage(bufferedImage);
+                FloatSize size = svgDocument.size();
+                BufferedImage image = ImageUtil.createImage((int) size.width, (int) size.height, BufferedImage.TYPE_INT_ARGB);
+                Graphics2D graphics = image.createGraphics();
+                svgDocument.render(null, graphics);
+                Image thumbnail = scaleImage(image);
                 if (thumbnail != null) {
                     return IconUtil.createImageIcon(thumbnail);
                 }

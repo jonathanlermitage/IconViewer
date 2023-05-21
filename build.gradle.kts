@@ -58,11 +58,7 @@ dependencies {
     implementation("com.twelvemonkeys.imageio:imageio-sgi:$twelvemonkeysVersion")  // https://github.com/haraldk/TwelveMonkeys/wiki/SGI-Plugin
     implementation("com.twelvemonkeys.imageio:imageio-tga:$twelvemonkeysVersion")  // https://github.com/haraldk/TwelveMonkeys/wiki/TGA-Plugin
     implementation("com.twelvemonkeys.imageio:imageio-tiff:$twelvemonkeysVersion") // https://github.com/haraldk/TwelveMonkeys/wiki/TIFF-Plugin
-    implementation("com.twelvemonkeys.imageio:imageio-batik:$twelvemonkeysVersion") // SVG support
-
-    implementation("org.apache.xmlgraphics:batik-anim:1.16")
-    implementation("org.apache.xmlgraphics:batik-transcoder:1.16")
-    implementation("xerces:xercesImpl:2.12.2")
+    implementation("com.github.weisj:jsvg:0.0.9") // https://github.com/weisJ/jsvg
 }
 
 intellij {
