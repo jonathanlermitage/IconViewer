@@ -1,6 +1,6 @@
 ## Icon Viewer 2 Change Log
 
-### 1.21.0 (WIP)
+### 1.21.0 (2023/05/21)
 * fix SVG support with IDE 2023.2 EAP.
 * important code rework, replaced Apache Batik by JSVG for SVG rendering.
 
