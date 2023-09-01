@@ -1,5 +1,8 @@
 # Icon Viewer 2 Change Log
 
+## 1.22.0 (2023/09/02)
+* replace Apache Batik by JSVG for SVG rendering. Batik integration potentially had some unwanted side effects on IDE.
+
 ## 1.21.1 (2023/05/22)
 * remove JSVG and restore Apache Batik for SVG rendering. Batik offers better support of SVG files than JSVG.
 * fix usage of Apache Batik (fixed a classloader issue, which could impact other plugins).
