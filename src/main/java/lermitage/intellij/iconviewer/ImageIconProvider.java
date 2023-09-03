@@ -2,8 +2,12 @@ package lermitage.intellij.iconviewer;
 
 import com.github.weisj.jsvg.SVGDocument;
 import com.github.weisj.jsvg.geometry.size.FloatSize;
+import com.github.weisj.jsvg.parser.AsynchronousResourceLoader;
 import com.github.weisj.jsvg.parser.SVGLoader;
+import com.github.weisj.jsvg.parser.StaxSVGLoader;
+import com.github.weisj.jsvg.util.ResourceUtil;
 import com.intellij.ide.IconProvider;
+import com.intellij.openapi.diagnostic.LogLevel;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
@@ -47,6 +51,7 @@ public class ImageIconProvider extends IconProvider {
     private static final Pattern cssVarRe = Pattern.compile("var\\([-\\w]+\\)");
 
     private final ThreadLocal<Boolean> localContextUpdated = ThreadLocal.withInitial(() -> false);
+    private final ThreadLocal<Boolean> isJSVGSevereLoggingDisabled = ThreadLocal.withInitial(() -> false);
 
     /**
      * Image formats supported by TwelveMonkeys.
@@ -111,9 +116,9 @@ public class ImageIconProvider extends IconProvider {
             extendedImgFormats.set(Stream.of(ImageIO.getReaderFormatNames()).map(String::toLowerCase).collect(Collectors.toSet()));
             extendedImgFormats.get().add("svg");
             if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("ImageIO plugins updated with TwelveMonkeys capabilities");
                 LOGGER.debug("Image file formats supported by Twelvemonkeys library: " + getExtendedImgFormats());
             }
-            LOGGER.warn("ImageIO plugins updated with TwelveMonkeys capabilities");
         }
     }
 
@@ -143,6 +148,20 @@ public class ImageIconProvider extends IconProvider {
                 return null;
             }
             if (fileExtension.endsWith("svg")) {
+                // IMPORTANT check https://github.com/search?q=repo%3AweisJ%2Fjsvg%20SEVERE&type=code
+                //  and find JSVG code which logs failures with SEVERE level, and disable them in order to avoid
+                //  IDE error reports for invalid SVG files
+                if (!isJSVGSevereLoggingDisabled.get()) {
+                    Logger.getFactory().getLoggerInstance(AsynchronousResourceLoader.class.getName()).setLevel(LogLevel.OFF);
+                    Logger.getFactory().getLoggerInstance(ResourceUtil.class.getName()).setLevel(LogLevel.OFF);
+                    Logger.getFactory().getLoggerInstance(StaxSVGLoader.class.getName()).setLevel(LogLevel.OFF);
+                    Logger.getFactory().getLoggerInstance(SVGLoader.class.getName()).setLevel(LogLevel.OFF);
+                    if (LOGGER.isDebugEnabled()) {
+                        LOGGER.debug("Prevent JSVG from generating error report on invalid SVG files");
+                    }
+                    isJSVGSevereLoggingDisabled.set(true);
+                }
+
                 SVGDocument svgDocument = loadSVG(canonicalPath);
                 if (svgDocument == null) {
                     return null;

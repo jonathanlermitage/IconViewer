@@ -1,5 +1,9 @@
 # Icon Viewer 2 Change Log
 
+## 1.22.2 (2023/09/03)
+* don't generate error report when loading invalid SVG file. 
+* logs are now less verbose.
+
 ## 1.22.1 (2023/09/03)
 * fix an IDE freeze when rendering many SVG files.
 
