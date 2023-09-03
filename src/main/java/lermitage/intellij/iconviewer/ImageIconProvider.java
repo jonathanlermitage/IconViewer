@@ -125,6 +125,11 @@ public class ImageIconProvider extends IconProvider {
         return new ByteArrayInputStream(replaced.getBytes());
     }
 
+    // FIXME IDE freezes when rendering many SVG files in parallel. Workaround: use a synchronized method
+    private static synchronized SVGDocument loadSVG(String canonicalPath) throws IOException {
+        return new SVGLoader().load(canonicalPathToByteArrayInputStream(canonicalPath));
+    }
+
     @Nullable
     private Icon previewImageWithExtendedSupport(@NotNull VirtualFile canonicalFile, @NotNull String fileExtension) {
         try {
@@ -138,8 +143,7 @@ public class ImageIconProvider extends IconProvider {
                 return null;
             }
             if (fileExtension.endsWith("svg")) {
-                SVGLoader svgLoader = new SVGLoader();
-                SVGDocument svgDocument = svgLoader.load(canonicalPathToByteArrayInputStream(canonicalPath));
+                SVGDocument svgDocument = loadSVG(canonicalPath);
                 if (svgDocument == null) {
                     return null;
                 }

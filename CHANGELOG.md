@@ -1,5 +1,8 @@
 # Icon Viewer 2 Change Log
 
+## 1.22.1 (2023/09/03)
+* fix an IDE freeze when rendering many SVG files.
+
 ## 1.22.0 (2023/09/02)
 * replace Apache Batik by JSVG for SVG rendering. Batik integration potentially had some unwanted side effects on IDE.
 
