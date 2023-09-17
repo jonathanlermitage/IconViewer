@@ -1,7 +1,11 @@
 # Icon Viewer 2 Change Log
 
+## 1.22.3 (2023/09/17)
+* fix a regression with classloader. **This update is highly recommended**.
+* upgrade JSVG (SVG renderer) to 1.1.0.
+
 ## 1.22.2 (2023/09/03)
-* don't generate error report when loading invalid SVG file. 
+* don't generate error report when loading invalid SVG file.
 * logs are now less verbose.
 
 ## 1.22.1 (2023/09/03)

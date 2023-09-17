@@ -110,8 +110,13 @@ public class ImageIconProvider extends IconProvider {
      */
     private synchronized void enhanceImageIOCapabilities() {
         if (!localContextUpdated.get()) {
-            Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
-            ImageIO.scanForPlugins();
+            ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+            try {
+                Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
+                ImageIO.scanForPlugins();
+            } finally {
+                Thread.currentThread().setContextClassLoader(contextClassLoader);
+            }
             localContextUpdated.set(true);
             extendedImgFormats.set(Stream.of(ImageIO.getReaderFormatNames()).map(String::toLowerCase).collect(Collectors.toSet()));
             extendedImgFormats.get().add("svg");
