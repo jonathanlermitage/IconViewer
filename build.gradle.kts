@@ -73,7 +73,7 @@ dependencies {
     implementation("com.twelvemonkeys.imageio:imageio-sgi:$twelvemonkeysVersion")  // https://github.com/haraldk/TwelveMonkeys/wiki/SGI-Plugin
     implementation("com.twelvemonkeys.imageio:imageio-tga:$twelvemonkeysVersion")  // https://github.com/haraldk/TwelveMonkeys/wiki/TGA-Plugin
     implementation("com.twelvemonkeys.imageio:imageio-tiff:$twelvemonkeysVersion") // https://github.com/haraldk/TwelveMonkeys/wiki/TIFF-Plugin
-    implementation("com.github.weisj:jsvg:1.0.0") // https://github.com/weisJ/jsvg
+    implementation("com.github.weisj:jsvg:1.1.0") // https://github.com/weisJ/jsvg
 }
 
 intellij {
