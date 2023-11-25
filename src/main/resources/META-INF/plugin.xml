@@ -1,4 +1,4 @@
-<idea-plugin>
+<idea-plugin require-restart="true">
     <id>lermitage.intellij.iconviewer</id>
     <name>Icon Viewer 2</name>
     <version>REPLACED_BY_GRADLE</version>
