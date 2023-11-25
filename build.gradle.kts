@@ -21,7 +21,7 @@ plugins {
     id("java")
     id("org.jetbrains.intellij") version "1.16.0" // https://github.com/JetBrains/gradle-intellij-plugin
     id("org.jetbrains.changelog") version "2.2.0" // https://github.com/JetBrains/gradle-changelog-plugin
-    id("com.github.ben-manes.versions") version "0.49.0" // https://github.com/ben-manes/gradle-versions-plugin
+    id("com.github.ben-manes.versions") version "0.50.0" // https://github.com/ben-manes/gradle-versions-plugin
     id("com.adarshr.test-logger") version "4.0.0" // https://github.com/radarsh/gradle-test-logger-plugin
     id("com.palantir.git-version") version "3.0.0" // https://github.com/palantir/gradle-git-version
     id("com.github.andygoossens.modernizer") version "1.9.0" // https://github.com/andygoossens/gradle-modernizer-plugin
@@ -57,7 +57,7 @@ repositories {
     mavenCentral()
 }
 
-val twelvemonkeysVersion = "3.10.0"
+val twelvemonkeysVersion = "3.10.1"
 
 dependencies {
     implementation("com.twelvemonkeys.imageio:imageio-core:$twelvemonkeysVersion") // https://github.com/haraldk/TwelveMonkeys/releases
@@ -208,27 +208,49 @@ fun shortenIdeVersion(version: String): String {
 
 /** Find latest IntelliJ stable version from JetBrains website. Result is cached locally for 24h. */
 fun findLatestStableIdeVersion(): String {
+    val t1 = System.currentTimeMillis()
     val definitionsUrl = URL("https://www.jetbrains.com/updates/updates.xml")
-    var definitionsStr: String
+    val cachedLatestVersionFile = File(System.getProperty("java.io.tmpdir") + "/jle-ij-latest-version.txt")
+    var latestVersion: String
     try {
-        val cacheDurationMs = Integer.parseInt(project.findProperty("pluginIdeaVersionCacheDurationInHours") as String) * 60 * 60_000
-        val cachedDefinitionsFile = File(System.getProperty("java.io.tmpdir") + "/jle-ij-updates.cache.xml")
-        if (cachedDefinitionsFile.exists() && cachedDefinitionsFile.lastModified() < (System.currentTimeMillis() - cacheDurationMs)) {
-            logger.quiet("Delete cached file: $cachedDefinitionsFile")
-            cachedDefinitionsFile.delete()
-        }
-        if (cachedDefinitionsFile.exists()) {
-            logger.quiet("Find latest stable IDE version from cached file: $cachedDefinitionsFile")
-            definitionsStr = Files.readString(cachedDefinitionsFile.toPath())
+        if (cachedLatestVersionFile.exists()) {
+
+            val cacheDurationMs = Integer.parseInt(project.findProperty("pluginIdeaVersionCacheDurationInHours") as String) * 60 * 60_000
+            if (cachedLatestVersionFile.exists() && cachedLatestVersionFile.lastModified() < (System.currentTimeMillis() - cacheDurationMs)) {
+                logger.quiet("Cache expired, find latest stable IDE version from $definitionsUrl then update cached file $cachedLatestVersionFile")
+                latestVersion = getOnlineLatestStableIdeVersion(definitionsUrl)
+                cachedLatestVersionFile.delete()
+                Files.writeString(cachedLatestVersionFile.toPath(), latestVersion, Charsets.UTF_8)
+
+            } else {
+                logger.quiet("Find latest stable IDE version from cached file $cachedLatestVersionFile")
+                latestVersion = Files.readString(cachedLatestVersionFile.toPath())!!
+            }
+
         } else {
-            logger.quiet("Find latest stable IDE version from: $definitionsUrl")
-            definitionsStr = readRemoteContent(definitionsUrl)
-            Files.writeString(cachedDefinitionsFile.toPath(), definitionsStr, Charsets.UTF_8)
+            logger.quiet("Find latest stable IDE version from $definitionsUrl")
+            latestVersion = getOnlineLatestStableIdeVersion(definitionsUrl)
+            Files.writeString(cachedLatestVersionFile.toPath(), latestVersion, Charsets.UTF_8)
         }
+
     } catch (e: Exception) {
-        logger.warn("Ignore cache and find latest stable IDE version from: $definitionsUrl", e)
-        definitionsStr = readRemoteContent(definitionsUrl)
+        if (cachedLatestVersionFile.exists()) {
+            logger.warn("Error: ${e.message}. Will find latest stable IDE version from cached file $cachedLatestVersionFile")
+            latestVersion = Files.readString(cachedLatestVersionFile.toPath())!!
+        } else {
+            throw RuntimeException(e)
+        }
     }
+    if (logger.isDebugEnabled) {
+        val t2 = System.currentTimeMillis()
+        logger.debug("Operation took ${t2 - t1} ms")
+    }
+    return latestVersion
+}
+
+/** Find latest IntelliJ stable version from given url. */
+fun getOnlineLatestStableIdeVersion(definitionsUrl: URL): String {
+    val definitionsStr = readRemoteContent(definitionsUrl)
     val builderFactory = DocumentBuilderFactory.newInstance()
     val builder = builderFactory.newDocumentBuilder()
     val xmlDocument: Document = builder.parse(ByteArrayInputStream(definitionsStr.toByteArray()))
@@ -239,6 +261,7 @@ fun findLatestStableIdeVersion(): String {
 
 /** Read a remote file as String. */
 fun readRemoteContent(url: URL): String {
+    val t1 = System.currentTimeMillis()
     val content = StringBuilder()
     val conn = url.openConnection() as HttpURLConnection
     conn.requestMethod = "GET"
@@ -249,6 +272,8 @@ fun readRemoteContent(url: URL): String {
             line = rd.readLine()
         }
     }
+    val t2 = System.currentTimeMillis()
+    logger.quiet("Download $url, took ${t2 - t1} ms (${content.length} B)")
     return content.toString()
 }
 

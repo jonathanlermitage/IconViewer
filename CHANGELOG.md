@@ -1,5 +1,8 @@
 # Icon Viewer 2 Change Log
 
+## 1.22.6 (2023/11/25)
+* upgrade TwelveMonkeys library to [3.10.1](https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.10.1): basically, various fixes for JPEG and PSD files support.
+
 ## 1.22.5 (2023/10/24)
 * upgrade TwelveMonkeys library to [3.10.0](https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.10.0): basically, various fixes for JPEG, PSD and TIFF files support.
 
