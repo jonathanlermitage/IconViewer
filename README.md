@@ -9,7 +9,7 @@
     <a href="https://github.com/jonathanlermitage/IconViewer/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/jonathanlermitage/IconViewer.svg"/></a>
 </p>
 
-Intellij IDEA 2019.3+  (Community and Ultimate) plugin that allows you to preview project images as an icon in your project explorer.  
+Intellij IDEA 2023.1+  (Community and Ultimate) plugin that allows you to preview project images as an icon in your project explorer.  
 Helpful if you have a lot of icons in your project, Icon Viewer 2 gives you a nice preview icon. 
   
 It works with all JetBrains products like WebStorm, DataGrip, etc.
@@ -25,11 +25,10 @@ Download plugin on [GitHub](https://github.com/jonathanlermitage/IconViewer/rele
 
 ### Gradle commands
 
-* build plugin: `./gradlew buildPlugin`. See generated zip: `build/distribution/Icon Viewer 2-x.y.z.193.zip`.
+* build plugin: `./gradlew buildPlugin`. See generated zip located into `build/distribution/`.
 * run IDE with plugin: `./gradlew runIde`.
-* check for dependencies updates: `./gradlew dependencyUpdates -Drevision=release -DoutputFormatter=plain -DoutputDir=./build/`.
 
-On Windows, you can look at the `do.cmd` helper script. Run `do.cmd help` to show available commands.
+You can also look at the [Makefile](./Makefile).
 
 ## Contribution
 
