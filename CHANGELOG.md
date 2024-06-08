@@ -1,5 +1,9 @@
 # Icon Viewer 2 Change Log
 
+## 1.22.9 (2024/06/08)
+* upgrade JSVG (SVG renderer) to 1.5.0.
+* upgrade TwelveMonkeys library to [3.11.0](https://github.com/haraldk/TwelveMonkeys/releases/tag/twelvemonkeys-3.10.1): basically, various fixes for JPEG, PSD and TIFF files support.
+
 ## 1.22.8 (2024/02/16)
 * upgrade JSVG (SVG renderer) to 1.4.0.
 
