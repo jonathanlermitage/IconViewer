@@ -35,13 +35,14 @@ Check also my other <a href="https://plugins.jetbrains.com/author/ed9cc7eb-74f5-
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="231"/>
+    <idea-version since-build="233.11799.241"/>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <errorHandler implementation="com.intellij.diagnostic.JetBrainsMarketplaceErrorReportSubmitter"/>
         <iconProvider implementation="lermitage.intellij.iconviewer.ImageIconProvider"/>
     </extensions>
 

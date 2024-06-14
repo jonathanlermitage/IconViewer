@@ -1,5 +1,8 @@
 # Icon Viewer 2 Change Log
 
+## 1.30.0 (2024/06/14)
+* integrate the new IDE [Exception Analyzer](https://plugins.jetbrains.com/docs/marketplace/exception-analyzer.html). This is an easy way to report plugin exceptions from IntelliJ Platform-based products to plugin developers right on JetBrains Marketplace, instead of opening an issue on the plugin's GitHub repository.
+
 ## 1.22.9 (2024/06/08)
 * upgrade JSVG (SVG renderer) to 1.5.0.
 * upgrade TwelveMonkeys library to 3.11.0: basically, various fixes for JPEG, PSD and TIFF files support.
