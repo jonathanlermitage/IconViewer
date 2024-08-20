@@ -20,11 +20,11 @@ import javax.xml.xpath.XPathFactory
 plugins {
     id("java")
     id("org.jetbrains.intellij") version "1.17.3" // https://github.com/JetBrains/gradle-intellij-plugin
-    id("org.jetbrains.changelog") version "2.2.0" // https://github.com/JetBrains/gradle-changelog-plugin
+    id("org.jetbrains.changelog") version "2.2.1" // https://github.com/JetBrains/gradle-changelog-plugin
     id("com.github.ben-manes.versions") version "0.51.0" // https://github.com/ben-manes/gradle-versions-plugin
     id("com.adarshr.test-logger") version "4.0.0" // https://github.com/radarsh/gradle-test-logger-plugin
-    id("com.palantir.git-version") version "3.0.0" // https://github.com/palantir/gradle-git-version
-    id("com.github.andygoossens.modernizer") version "1.9.0" // https://github.com/andygoossens/gradle-modernizer-plugin
+    id("com.palantir.git-version") version "3.1.0" // https://github.com/palantir/gradle-git-version
+    id("com.github.andygoossens.modernizer") version "1.9.3" // https://github.com/andygoossens/gradle-modernizer-plugin
     id("biz.lermitage.oga") version "1.1.1" // https://github.com/jonathanlermitage/oga-gradle-plugin
 }
 
@@ -58,7 +58,7 @@ repositories {
 }
 
 val twelvemonkeysVersion = "3.11.0"
-val jsvgVersion = "1.5.0"
+val jsvgVersion = "1.6.1"
 
 dependencies {
     implementation("com.twelvemonkeys.imageio:imageio-core:$twelvemonkeysVersion") // https://github.com/haraldk/TwelveMonkeys/releases
