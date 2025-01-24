@@ -1,5 +1,8 @@
 # Icon Viewer 2 Change Log
 
+## 1.31.2 (2024/01/25)
+* upgrade JSVG (SVG renderer) to 1.7.0.
+
 ## 1.31.1 (2024/10/28)
 * upgrade TwelveMonkeys library to 3.12.0.
 
