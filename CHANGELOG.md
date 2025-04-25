@@ -1,6 +1,9 @@
 # Icon Viewer 2 Change Log
 
-## 1.31.2 (2024/01/25)
+## 1.31.3 (2025/04/25)
+* upgrade JSVG (SVG renderer) to 2.0.0.
+
+## 1.31.2 (2025/01/25)
 * upgrade JSVG (SVG renderer) to 1.7.0.
 
 ## 1.31.1 (2024/10/28)

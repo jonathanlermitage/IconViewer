@@ -1,11 +1,9 @@
 package lermitage.intellij.iconviewer;
 
 import com.github.weisj.jsvg.SVGDocument;
-import com.github.weisj.jsvg.geometry.size.FloatSize;
-import com.github.weisj.jsvg.parser.AsynchronousResourceLoader;
 import com.github.weisj.jsvg.parser.SVGLoader;
-import com.github.weisj.jsvg.parser.StaxSVGLoader;
 import com.github.weisj.jsvg.util.ResourceUtil;
+import com.github.weisj.jsvg.view.FloatSize;
 import com.intellij.ide.IconProvider;
 import com.intellij.openapi.diagnostic.LogLevel;
 import com.intellij.openapi.diagnostic.Logger;
@@ -23,18 +21,13 @@ import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -48,7 +41,7 @@ public class ImageIconProvider extends IconProvider {
 
     private static final Logger LOGGER = Logger.getInstance(ImageIconProvider.class);
     private static final int SCALING_SIZE = 16;
-    private static final Pattern cssVarRe = Pattern.compile("var\\([-\\w]+\\)");
+    //private static final Pattern cssVarRe = Pattern.compile("var\\([-\\w]+\\)");
 
     private final ThreadLocal<Boolean> localContextUpdated = ThreadLocal.withInitial(() -> false);
     private final ThreadLocal<Boolean> isJSVGSevereLoggingDisabled = ThreadLocal.withInitial(() -> false);
@@ -157,9 +150,9 @@ public class ImageIconProvider extends IconProvider {
                 //  and find JSVG code which logs failures with SEVERE level, and disable them in order to avoid
                 //  IDE error reports for invalid SVG files
                 if (!isJSVGSevereLoggingDisabled.get()) {
-                    Logger.getFactory().getLoggerInstance(AsynchronousResourceLoader.class.getName()).setLevel(LogLevel.OFF);
+                    //Logger.getFactory().getLoggerInstance(AsynchronousResourceLoader.class.getName()).setLevel(LogLevel.OFF);
                     Logger.getFactory().getLoggerInstance(ResourceUtil.class.getName()).setLevel(LogLevel.OFF);
-                    Logger.getFactory().getLoggerInstance(StaxSVGLoader.class.getName()).setLevel(LogLevel.OFF);
+                    //Logger.getFactory().getLoggerInstance(StaxSVGLoader.class.getName()).setLevel(LogLevel.OFF);
                     Logger.getFactory().getLoggerInstance(SVGLoader.class.getName()).setLevel(LogLevel.OFF);
                     if (LOGGER.isDebugEnabled()) {
                         LOGGER.debug("Prevent JSVG from generating error report on invalid SVG files");

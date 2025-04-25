@@ -58,7 +58,7 @@ repositories {
 }
 
 val twelvemonkeysVersion = "3.12.0"
-val jsvgVersion = "1.7.0"
+val jsvgVersion = "2.0.0"
 
 dependencies {
     implementation("com.twelvemonkeys.imageio:imageio-core:$twelvemonkeysVersion") // https://github.com/haraldk/TwelveMonkeys/releases
