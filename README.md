@@ -42,7 +42,7 @@ MIT License. In other words, you can do what you want: this project is entirely 
 
 ## Demonstration
 
-Bigger images are scaled to 16x16.
+Images are scaled to 16x16.
 
 Supported file formats are:
 
@@ -59,5 +59,9 @@ Supported when *Android Support* plugin is activated:
  - *.webp
  
 Files Supported by bundled TwelveMonkeys library, like *.ico, *.tga, etc. See [File formats supported](https://github.com/haraldk/TwelveMonkeys#file-formats-supported).
+
+You can also filter the images to display. To proceed, go to `Help > Edit Custom Properties` then add a line like `icon-viewer-2-max-filesize=X` where X is a file size in kilobytes (KB). Example: `icon-viewer-2-max-filesize=1024` will tell Icon Viewer 2 to display images only for files smaller than 1MB. Bigger images will display the default logo for image files. This property takes effect after the IDE restart.
  
+### Screenshot: 
+
 ![screeshot](misc/screenshot.png)

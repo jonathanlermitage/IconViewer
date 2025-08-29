@@ -46,6 +46,26 @@ public class ImageIconProvider extends IconProvider {
     private final ThreadLocal<Boolean> localContextUpdated = ThreadLocal.withInitial(() -> false);
     private final ThreadLocal<Boolean> isJSVGSevereLoggingDisabled = ThreadLocal.withInitial(() -> false);
 
+    private static final Long FILE_MAX_SIZE = readFileMaxSize();
+
+    private static Long readFileMaxSize() {
+        try {
+            String sizeStr = System.getProperty("icon-viewer-2-max-filesize", null);
+            if (sizeStr == null) {
+                return 0L;
+            }
+            long size = Long.parseLong(sizeStr);
+            if (size < 0L) {
+                return 0L;
+            }
+            long sizeKB = size * 1024;
+            LOGGER.info("Detected property icon-viewer-2-max-filesize=" + size + ", will show images for files smaller than " + size + " KB");
+            return sizeKB;
+        } catch (Exception e) {
+            return 0L;
+        }
+    }
+
     /**
      * Image formats supported by TwelveMonkeys.
      */
@@ -68,6 +88,14 @@ public class ImageIconProvider extends IconProvider {
                 && !containingFile.getVirtualFile().getCanonicalFile().getCanonicalPath().contains(".jar")) {
 
                 VirtualFile canonicalFile = containingFile.getVirtualFile().getCanonicalFile();
+
+                try {
+                    if (FILE_MAX_SIZE > 0L && canonicalFile.getLength() > FILE_MAX_SIZE) {
+                        return null;
+                    }
+                } catch (Exception e) {
+                    LOGGER.warn(e);
+                }
                 String fileExtension = containingFile.getVirtualFile().getExtension().toLowerCase();
 
                 if (androidImgFormats.contains(fileExtension)) {
@@ -85,6 +113,13 @@ public class ImageIconProvider extends IconProvider {
 
     @Nullable
     private Icon previewAndroidImage(@NotNull VirtualFile canonicalFile) {
+        try {
+            if (FILE_MAX_SIZE > 0L && canonicalFile.getLength() > FILE_MAX_SIZE) {
+                return null;
+            }
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
         try {
             BufferedImage read = read(canonicalFile);
             if (read == null) {

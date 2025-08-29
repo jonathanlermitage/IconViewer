@@ -24,6 +24,8 @@
       </ul>
       Files Supported by bundled TwelveMonkeys library, like *.ico, *.tga, etc. See <a href="https://github.com/haraldk/TwelveMonkeys#file-formats-supported">File formats supported</a>.
       <br/>
+      <br/>You can also filter the images to display. Go to <code>Help &gt; Edit Custom Properties</code> then add a line like <code>icon-viewer-2-max-filesize=X</code> where <code>X</code> is a file size in kilobytes (KB). Example: <code>icon-viewer-2-max-filesize=1024</code> will tell Icon Viewer 2 to display images only for files smaller than 1MB. Bigger images will display the default logo for image files. This property takes effect after the IDE restart.
+      <br/>
       <br/>
 Check also my other <a href="https://plugins.jetbrains.com/author/ed9cc7eb-74f5-46c1-b0df-67162fe1a1c5">plugins</a>.<br>
 <br>
