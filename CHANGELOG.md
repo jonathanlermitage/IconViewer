@@ -1,5 +1,8 @@
 # Icon Viewer 2 Change Log
 
+## 1.32.1 (2025/12/24)
+* upgrade TwelveMonkeys library to 3.13.0.
+
 ## 1.32.0 (2025/08/29)
 * implement [#7](https://github.com/jonathanlermitage/IconViewer/issues/7): allow to filter files by size. To proceed, go to `Help > Edit Custom Properties` then add a line like `icon-viewer-2-max-filesize=X` where X is a file size in kilobytes (KB). Example: `icon-viewer-2-max-filesize=1024` will tell Icon Viewer 2 to display images only for files smaller than 1MB. Bigger images will display the default logo for image files. This property takes effect after the IDE restart.
 
