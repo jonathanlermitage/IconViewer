@@ -57,7 +57,7 @@ repositories {
     mavenCentral()
 }
 
-val twelvemonkeysVersion = "3.13.0"
+val twelvemonkeysVersion = "3.13.1"
 val jsvgVersion = "2.0.0"
 
 dependencies {
