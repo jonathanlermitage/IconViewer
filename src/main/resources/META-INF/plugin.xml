@@ -48,4 +48,10 @@ Check also my other <a href="https://plugins.jetbrains.com/author/ed9cc7eb-74f5-
         <iconProvider implementation="lermitage.intellij.iconviewer.ImageIconProvider"/>
     </extensions>
 
+    <applicationListeners>
+        <listener class="lermitage.intellij.iconviewer.MyAppLifecycleListener"
+                  topic="com.intellij.ide.AppLifecycleListener"
+                  activeInHeadlessMode="false"/>
+    </applicationListeners>
+
 </idea-plugin>
