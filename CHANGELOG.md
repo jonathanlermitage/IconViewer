@@ -1,5 +1,8 @@
 # Icon Viewer 2 Change Log
 
+## 1.32.4 (2026/05/05)
+* upgrade JSVG (SVG renderer) to 2.1.0.
+
 ## 1.32.3 (2026/04/08)
 * update the Privacy Policy. A minimal set of anonymous data is now collected and is retained for a maximum of 31 days. This data is used to determine which versions of the IDEs are in use and to assess whether it is worthwhile to continue supporting older IDE versions. The data is never shared with anyone else. [Click here](https://github.com/jonathanlermitage/IconViewer/blob/master/PRIVACY.md) to view the full description and learn how to disable data collection.
 
