@@ -1,5 +1,8 @@
 # Icon Viewer 2 Change Log
 
+## 1.32.5 (2026/06/05)
+* fix usage of JetBrains removed APIs, fixing the compatibility with future IDEs (2026.2+).
+
 ## 1.32.4 (2026/05/05)
 * upgrade JSVG (SVG renderer) to 2.1.0.
 
