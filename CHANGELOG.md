@@ -1,5 +1,8 @@
 # Icon Viewer 2 Change Log
 
+## 1.32.6 (2026/08/07)
+* upgrade TwelveMonkeys library (3.13.1 -> 3.14.0). Basically, this version prevents OOME when loading images.
+
 ## 1.32.5 (2026/06/05)
 * fix usage of JetBrains removed APIs, fixing the compatibility with future IDEs (2026.2+).
 
