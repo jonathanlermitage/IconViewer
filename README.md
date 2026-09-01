@@ -38,7 +38,7 @@ To finish, don't hesitate to add your name or nickname to contributors list ;-)
 
 ## License
 
-MIT License. In other words, you can do what you want: this project is entirely OpenSource, Free and Gratis.
+AGPL-3.0 (GNU Affero General Public License).
 
 ## Demonstration
 
