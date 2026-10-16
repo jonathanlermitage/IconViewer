@@ -1,5 +1,9 @@
 # Icon Viewer 2 Change Log
 
+## 1.32.7 (2026/10/16)
+* upgrade TwelveMonkeys library (3.14.0 -> 3.15.3).
+* upgrade JSVG library (2.1.0 to 2.2.0).
+
 ## 1.32.6 (2026/08/07)
 * upgrade TwelveMonkeys library (3.13.1 -> 3.14.0). Basically, this version prevents OOME when loading images.
 

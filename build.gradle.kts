@@ -57,8 +57,8 @@ repositories {
     mavenCentral()
 }
 
-val twelvemonkeysVersion = "3.14.0"
-val jsvgVersion = "2.1.0"
+val twelvemonkeysVersion = "3.15.3"
+val jsvgVersion = "2.2.0"
 
 dependencies {
     implementation("com.twelvemonkeys.imageio:imageio-core:$twelvemonkeysVersion") // https://github.com/haraldk/TwelveMonkeys/releases
